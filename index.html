@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Panel de Inversión · PortfolioAAF</title>
+<meta name="description" content="Panel personal de inversión: bolsa, dividendos, planes de pensiones y fondos. Los datos se guardan solo en tu navegador.">
+<meta name="theme-color" content="#1d6b57">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d6b57'/%3E%3Cpath d='M7 22l6-7 5 4 7-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow" id="since">Bolsa, planes y fondos</div>
+      <h1>Panel de Inversión</h1>
+      <div class="patri" id="patri" aria-live="polite"></div>
+    </div>
+    <div class="side">
+      <div class="status" id="status">Cargando datos…</div>
+      <div class="backup">
+        <button type="button" class="btn exp" id="bkExport" title="Descarga todos tus datos en un archivo .json">Guardar copia</button>
+        <button type="button" class="btn ghost" id="bkImport" title="Sustituye los datos de este navegador por los de una copia">Restaurar copia</button>
+        <input type="file" id="bkFile" accept="application/json,.json" hidden>
+      </div>
+      <div class="bkinfo" id="bkInfo"></div>
+    </div>
+  </header>
+
+  <div class="panel welcome" id="welcome" hidden>
+    <h2>Este navegador aún no tiene datos</h2>
+    <p>Tus datos se guardan solo en el navegador donde usas la app. Si tienes una copia de seguridad (<b>.json</b>), restáurala para empezar. Si no, registra tu primera compra en «Compras y ventas».</p>
+    <div><button type="button" class="btn" id="bkImport2">Restaurar copia de seguridad</button></div>
+  </div>
+
+  <div class="kpiwrap" id="kpis"></div>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-v="resumen" aria-selected="true">Resumen</button>
+    <button role="tab" data-v="posiciones">Posiciones</button>
+    <button role="tab" data-v="movimientos">Compras y ventas</button>
+    <button role="tab" data-v="dividendos">Dividendos</button>
+    <button role="tab" data-v="analisis">Análisis</button>
+    <button role="tab" data-v="simulador">Simulador de aportación</button>
+  </nav>
+
+  <section class="view" id="v-resumen">
+    <div class="grid2">
+      <div class="panel"><header><h3>Aportación neta y dividendos por año</h3><span class="muted" style="font-size:12px">€</span></header><div class="chart"><canvas id="chYear"></canvas></div></div>
+      <div class="panel"><header><h3>Dividendos acumulados en el año</h3><span class="muted" style="font-size:12px">€ por mes</span></header><div class="chart"><canvas id="chCum"></canvas></div></div>
+    </div>
+    <div class="panel"><header><h3>Bolsa frente a planes y fondo</h3><span class="muted" style="font-size:12px">saldos registrados, aportaciones incluidas · €</span></header><div class="chart"><canvas id="chEvo"></canvas></div></div>
+    <div class="panel"><header><h3>Peso de cada posición</h3><span class="muted" style="font-size:12px">sobre el valor actual · <span class="key" style="--k:var(--c1)"></span>ETF <span class="key" style="--k:var(--c5)"></span>acciones <span class="key" style="--k:var(--c4)"></span>planes y fondo</span></header><div class="chart xtall"><canvas id="chWeight"></canvas></div></div>
+  </section>
+
+  <section class="view" id="v-posiciones" hidden>
+    <p class="muted" style="margin:0;max-width:80ch">El <b>precio de referencia</b> de acciones y ETF sale de la última orden registrada hasta que lo cambies. En planes y fondos, actualiza el valor con el formulario o directamente en la tabla. Escribe lo <b>aportado</b> a cada plan para ver su plusvalía. Todo lo que cambies se guarda para la próxima visita.</p>
+    <div class="panel" id="planPanel">
+      <header><h3>Actualizar planes y fondo</h3><span class="muted" style="font-size:12px">escribe el valor total del extracto, o participaciones y valor liquidativo</span></header>
+      <form class="entry" id="fPlan" autocomplete="off">
+        <label>Producto<select id="pId"></select></label>
+        <label>Fecha del extracto<input id="pDate" type="date" required></label>
+        <label>Valor total (€)<input id="pValue" type="number" step="any" min="0" placeholder="p. ej. 23.500"></label>
+        <label>Participaciones<input id="pUnits" type="number" step="any" min="0"></label>
+        <label>Valor liquidativo (€)<input id="pNav" type="number" step="any" min="0"></label>
+        <label>Aportado acumulado (€)<input id="pContrib" type="number" step="any" min="0" placeholder="opcional"></label>
+        <label style="flex-direction:row;align-items:center;gap:8px;color:var(--fg)"><input id="pSnap" type="checkbox" checked style="width:auto"> Añadir al gráfico de evolución</label>
+        <button class="btn" id="pSave" type="submit">Guardar valores</button>
+      </form>
+      <div class="muted" id="pHint" style="font-size:12px"></div>
+    </div>
+    <div class="filters" style="justify-content:flex-end"><button type="button" class="btn exp" data-export="positions" hidden>Exportar a Excel</button><button type="button" class="btn ghost" id="gOpen">Desplegar todo</button><button type="button" class="btn ghost" id="gClose">Plegar todo</button></div>
+    <div class="tbl"><table id="tPos"></table></div>
+    <div class="panel"><header><h3>Posiciones cerradas</h3></header><div class="tbl" style="border:0"><table id="tClosed"></table></div></div>
+  </section>
+
+  <section class="view" id="v-movimientos" hidden>
+    <div class="panel">
+      <header><h3>Registrar una orden</h3><span class="muted" style="font-size:12px">compra, venta o gasto (custodia, comisiones)</span></header>
+      <form class="entry" id="fOrder" autocomplete="off">
+        <label>Fecha<input id="oDate" type="date" required></label>
+        <label>Tipo<select id="oType"><option value="buy">Compra</option><option value="sell">Venta</option><option value="fee">Gasto / custodia</option></select></label>
+        <label>Ticker<input id="oTicker" list="tickers" placeholder="p. ej. VWCE" required></label>
+        <label id="lName" hidden>Nombre del activo<input id="oName" placeholder="Nombre"></label>
+        <label id="lKind" hidden>Tipo de activo<select id="oKind"><option>Acción</option><option>ETF</option><option>Fondo</option></select></label>
+        <label id="lIsin" hidden>ISIN<input id="oIsin" placeholder="opcional"></label>
+        <label id="lBroker" hidden>Bróker<input id="oBroker" placeholder="Nombre del bróker"></label>
+        <label>Acciones<input id="oQty" type="number" min="0" step="any" required></label>
+        <label>Precio (€)<input id="oPrice" type="number" min="0" step="any" required></label>
+        <label>Comisión (€)<input id="oFee" type="number" min="0" step="any" value="0"></label>
+        <label id="lNote" hidden>Concepto<input id="oNote" placeholder="Custodia de valores"></label>
+        <button class="btn" id="oSave" type="submit">Guardar orden</button>
+      </form>
+      <div class="muted" id="oHint" style="font-size:12px"></div>
+    </div>
+    <div class="filters" style="align-items:center"><select id="fYear"></select><select id="fTk"></select><button type="button" class="btn exp" data-export="orders" hidden title="Exporta las órdenes que muestra la tabla con el filtro actual">Exportar a Excel</button></div>
+    <div class="tbl scrollv"><table id="tOrders"></table></div>
+  </section>
+
+  <section class="view" id="v-dividendos" hidden>
+    <div class="panel">
+      <header><h3>Registrar un dividendo</h3><span class="muted" style="font-size:12px">importe bruto cobrado, como en la hoja Dividendo</span></header>
+      <form class="entry" id="fDiv" autocomplete="off">
+        <label>Fecha de cobro<input id="dDate" type="date" required></label>
+        <label>Ticker<input id="dTicker" list="tickers" required></label>
+        <label>Importe (€)<input id="dAmt" type="number" step="any" min="0" required></label>
+        <button class="btn" id="dSave" type="submit">Guardar dividendo</button>
+      </form>
+    </div>
+    <div class="filters" style="align-items:center"><select id="dYear"></select><button type="button" class="btn exp" data-export="dividends" hidden title="Exporta todos los años, con el mismo formato que la hoja Dividendo">Exportar a Excel</button><span class="muted" style="font-size:12px">Haz clic en una celda para corregir el importe o escribir uno nuevo; déjala vacía para borrarlo. Las cifras con un número pequeño juntan varios cobros: se corrigen en la lista de abajo.</span></div>
+    <div class="tbl scrolly"><table id="tDivMatrix"></table></div>
+    <div class="panel"><header><h3>Cobros registrados</h3><span class="muted" style="font-size:12px">corrige fecha, ticker o importe directamente; los importados del Excel llevan día 15</span></header><div class="tbl" style="border:0;max-height:420px"><table id="tDivs"></table></div></div>
+  </section>
+
+  <section class="view" id="v-analisis" hidden>
+    <div class="callout" id="anSummaryBox" hidden>
+      <div class="eyebrow">Conclusión en una frase</div>
+      <div style="font-size:16px;font-weight:500;max-width:80ch" id="anSummary"></div>
+    </div>
+    <div class="grid2" id="liveHealth"></div>
+    <div class="panel prose" id="analysis"></div>
+    <p class="muted" style="font-size:12px;margin:0;max-width:80ch" id="anNote"></p>
+  </section>
+
+  <section class="view" id="v-simulador" hidden>
+    <div class="sim">
+      <div class="panel">
+        <h3>Parámetros</h3>
+        <form id="fSim" onsubmit="return false">
+          <label>Aportación mensual (€)<input id="sMonthly" type="number" min="0" step="10" value="450"></label>
+          <label>Comisión por orden (€)<input id="sFee" type="number" min="0" step="0.1" value="3.9"></label>
+          <label>Rentabilidad total esperada (% anual)<input id="sRet" type="number" step="0.5" value="6"></label>
+          <label>Rentabilidad por dividendo (% anual)<input id="sYld" type="number" step="0.1" value="3"></label>
+          <label>Horizonte (años)<input id="sYears" type="number" min="1" max="40" value="20"></label>
+        </form>
+        <p class="muted" style="font-size:12px;margin:0">Comisiones habituales por orden: 0–3 € en ETF y fondos, unos 4 € en acciones extranjeras con brókers de bajo coste y 10 € o más en bancos tradicionales.</p>
+      </div>
+      <div class="panel">
+        <h3>Frecuencia óptima de compra</h3>
+        <div class="out" id="simOut"></div>
+        <p class="muted" style="font-size:12px;margin:0" id="simNote"></p>
+        <div class="chart"><canvas id="chSim"></canvas></div>
+      </div>
+    </div>
+  </section>
+</div>
+<datalist id="tickers"></datalist>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

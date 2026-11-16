@@ -1,0 +1,12 @@
+# Copias de seguridad y datos personales: nunca al repositorio
+PortfolioAAF_copia_*.json
+*copia*.json
+copias/
+datos/
+*.xlsx
+*.xls
+*.csv
+
+# Sistema
+.DS_Store
+Thumbs.db
