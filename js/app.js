@@ -12,7 +12,7 @@ try{JSON.parse(localStorage.getItem('collapsed')||'[]').forEach(g=>S.collapsed.a
 const charts = {};
 if(window.Chart){Chart.defaults.font.family='"IBM Plex Sans", "Segoe UI", system-ui, sans-serif';}
 
-function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,3200)}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,Math.max(3200,msg.length*70))}
 function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
 
@@ -499,11 +499,18 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-export]');
 /* ---------- header extras & backups ---------- */
 function renderSince(){const O=orders();const f=O[0]?.date;$('#since').textContent=f?`Bolsa, planes y fondos · desde ${MONTHS[+f.slice(5,7)-1].toLowerCase()}. ${f.slice(0,4)}`:'Bolsa, planes y fondos'}
 let BK=null;
+let SYNC=null;
+const hhmm=d=>d?new Date(d).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'';
 function renderBackupInfo(){
   if(!BK)return;const empty=BK.isEmpty();$('#welcome').hidden=!empty;
+  if(SYNC?.mode==='archivo'){const st=SYNC.status();$('#ghPush').hidden=false;
+    $('#bkInfo').innerHTML=st.state==='saving'?`Guardando en ${esc(st.file)}…`:st.state==='error'?`<b>No se pudo guardar en ${esc(st.file)}: ${esc(st.error)}. ¿Sigue abierto serve.py?</b>`:`Guardado en ${esc(st.file)}${st.savedAt?' · '+hhmm(st.savedAt):''}`;return}
   const last=BK.lastDate();const days=last?Math.floor((Date.now()-new Date(last))/864e5):null;
   $('#bkInfo').innerHTML=empty?'':!last?'<b>Aún no has guardado ninguna copia de seguridad.</b>':days>30?`<b>Última copia: ${last.split('-').reverse().join('/')} (hace ${days} días).</b>`:`Última copia: ${last.split('-').reverse().join('/')}`;
 }
+$('#ghPush').addEventListener('click',async()=>{const b=$('#ghPush');b.disabled=true;b.textContent='Subiendo…';
+  try{const r=await SYNC.publish();toast(r.message)}catch(e){toast(e?.message||'No se pudo subir a GitHub.');if(e?.detail)console.warn(e.detail)}
+  finally{b.disabled=false;b.textContent='Subir a GitHub'}});
 $('#bkExport').addEventListener('click',async()=>{try{await BK.export();toast('Copia de seguridad descargada');renderBackupInfo()}catch(e){toast('No se pudo generar la copia.')}});
 const pickBackup=()=>{if(!BK.isEmpty()&&!confirm('Restaurar una copia sustituye todos los datos de este navegador por los del archivo. ¿Continuar?'))return;$('#bkFile').value='';$('#bkFile').click()};
 $('#bkImport').addEventListener('click',pickBackup);$('#bkImport2').addEventListener('click',pickBackup);
@@ -515,7 +522,7 @@ renderAll();syncOrderForm();
 (async()=>{
   const db=await window.platform.use('db');
   if(!db){$('#status').innerHTML='<b>No se pudo acceder al almacenamiento del navegador.</b>';return}
-  S.db=db;BK=await window.platform.use('backup');
+  S.db=db;BK=await window.platform.use('backup');SYNC=await window.platform.use('sync');SYNC?.onChange(renderBackupInfo);
   window.platform.use('downloads').then(dl=>{if(dl&&window.XLSX)document.querySelectorAll('[data-export]').forEach(b=>b.hidden=false)});
   const user=await window.platform.use('user');
   const cw=user?await user.can('data.write'):null; if(cw===false){S.canWrite=false;document.querySelectorAll('form.entry button').forEach(b=>b.disabled=true)}
