@@ -1,0 +1,3657 @@
+{
+ "docs": {
+  "analysis": {
+   "html": "\n<h2>1. Lo que estás haciendo bien</h2>\n<ul>\n<li><b>Constancia.</b> Has comprado en 46 meses distintos desde septiembre de 2022 y has aportado 21.500 € netos en algo más de 4 años (unos 5.000 € al año, ~420 €/mes). Esa disciplina explica la mayor parte del resultado.</li>\n<li><b>Los dividendos crecen.</b> 133 € en 2023, 472 € en 2024, 580 € en 2025 y 538 € en 2026 hasta octubre. Sobre el capital invertido rinden un 2,6–2,8 % bruto anual.</li>\n<li><b>La cartera gana dinero.</b> Con los precios de la última orden, el valor ronda 24.900 € frente a 22.300 € de coste (+11,5 %). Los ganadores son ACS (+100 %), Iberdrola (+41 %), Elecnor (+43 %), MSCI World (+28 %) y STOXX 600 (+21 %).</li>\n</ul>\n<h2>2. El problema principal: las comisiones</h2>\n<p>Llevas <b>964 € en comisiones y custodia: el 4,5 % de todo lo invertido</b>. Para recuperar eso, la cartera necesita casi dos años de dividendos.</p>\n<ul>\n<li><b>Bolsa de Madrid vía CaixaBank: 7,2 % por orden.</b> 50 órdenes con ticket medio de 138 € y 10,3 € de comisión mínima, más 87 €/año de custodia (un 1,2 % anual sobre los ~7.200 € en acciones españolas). Es el agujero más grande.</li>\n<li><b>Acciones de EE.UU. en DeGiro (Tradegate): 2,9 %.</b> 3,9 € sobre tickets de ~134 €.</li>\n<li><b>ETF en Xetra y Amsterdam: 1–1,5 %.</b> Lo mejor de la cartera, pero aún mejorable con tickets más grandes.</li>\n</ul>\n<p>La causa es siempre la misma: <b>muchas órdenes pequeñas</b> (de 22 a 63 al año, de 83 € a 174 € cada una). Comprar 5 acciones de cinco empresas distintas cuesta cinco comisiones.</p>\n<h2>3. Aportación periódica óptima</h2>\n<p>La cantidad la marca tu capacidad de ahorro; lo que se puede optimizar es <b>cada cuánto y en qué tamaño</b> comprar. Esperar a juntar dinero tiene un coste (el dinero parado no rinde) y comprar a menudo tiene otro (la comisión fija). El punto de equilibrio es:</p>\n<p class=\"num\" style=\"background:var(--sunk);padding:10px 12px;border-radius:6px\">órdenes al año = √(aportación anual × rentabilidad ÷ (2 × comisión))</p>\n<p>Con tu ritmo actual (~5.400 €/año, 7 % esperado):</p>\n<div class=\"tbl\"><table><thead><tr><th>Dónde compras</th><th class=\"n\">Comisión</th><th class=\"n\">Órdenes/año</th><th class=\"n\">Ticket óptimo</th><th class=\"n\">Coste anual</th></tr></thead><tbody>\n<tr><td>ETF de bajo coste</td><td class=\"n\">1 €</td><td class=\"n\">≈ 12–14</td><td class=\"n\">≈ 400–450 €</td><td class=\"n\">≈ 27 €</td></tr>\n<tr><td>DeGiro, acciones EE.UU./Europa</td><td class=\"n\">3,9 €</td><td class=\"n\">≈ 7</td><td class=\"n\">≈ 775 €</td><td class=\"n\">≈ 54 €</td></tr>\n<tr><td>CaixaBank, Bolsa de Madrid</td><td class=\"n\">10,3 €</td><td class=\"n\">≈ 4</td><td class=\"n\">≈ 1.250 €</td><td class=\"n\">≈ 88 € + 87 € custodia</td></tr>\n<tr><td><i>Tu patrón actual</i></td><td class=\"n\">mezcla</td><td class=\"n\">22–63</td><td class=\"n\">83–174 €</td><td class=\"n\">≈ 220 € + 87 €</td></tr></tbody></table></div>\n<p><b>Propuesta concreta:</b> aporta <b>450 €/mes</b> (5.400 €/año, tu media) así:</p>\n<ul>\n<li><b>Núcleo (≈70 %):</b> una única compra mensual de ~315 € en un índice global. Si usas un fondo indexado sin comisión de compra, el coste por orden es 0 € y puedes hacerlo cada mes con aportación automática.</li>\n<li><b>Satélites (≈30 %):</b> acumula ~135 €/mes y haz <b>una sola compra cada 6 meses (~800 €)</b> en DeGiro, en la empresa más infraponderada de tu lista. Comisión: 0,5 %.</li>\n<li><b>Bolsa española:</b> deja de comprar en CaixaBank. Si quieres seguir sumando acciones españolas, hazlo desde un bróker sin custodia y con comisión baja, y estudia el traspaso de los títulos (pregunta antes el coste de salida).</li>\n</ul>\n<p>Con esto bajarías de ~300 € a ~40–60 € anuales de costes. Esa diferencia, reinvertida 20 años al 6 %, son unos 9.000–10.000 €. Prueba otras cifras en la pestaña «Simulador de aportación».</p>\n<h2>4. Demasiadas posiciones para el tamaño de la cartera</h2>\n<ul>\n<li>21 posiciones abiertas con 22.300 €: una media de ~1.060 € cada una. 13 de ellas no llegan a 1.000 € y pesan menos del 4 % cada una; ninguna mueve el resultado, pero todas generan comisiones y seguimiento.</li>\n<li>El 32 % está en España (6 valores) y otro 32 % en ETF. Hay solapamientos: el MSCI World ya incluye Verizon, AT&T, Comcast, Pfizer, Intel, Shell, Unilever o Diageo.</li>\n<li><b>Objetivo:</b> núcleo indexado del 70 % y como mucho 8–10 acciones satélite que conozcas bien. No hace falta vender: basta con dirigir las nuevas aportaciones al núcleo hasta que el peso se equilibre.</li>\n</ul>\n<h2>5. Cuidado con las trampas de dividendo</h2>\n<p>Varias de las compras más repetidas son empresas cuyo dividendo o negocio se ha deteriorado, y has seguido comprando a precios cada vez más bajos:</p>\n<ul>\n<li><b>Intel</b> (−30 % s/coste con la última orden): suspendió el dividendo; 0 € cobrados en 2025 y 2026.</li>\n<li><b>Walgreens</b>: recortó el dividendo y dejó de cotizar tras su compra por un fondo en 2025. La hoja Dividendo la marca con 0 acciones, pero en Órdenes no consta la salida. Registra la venta con el importe que recibiste para cerrar la posición y su resultado.</li>\n<li><b>Comcast</b> (−40 %), <b>Kraft Heinz</b> (−33 %) y <b>Diageo</b> (−31 %): has promediado a la baja 4–5 veces cada una.</li>\n</ul>\n<p><b>Regla sugerida:</b> no amplíes una posición si el dividendo se ha recortado, o si lleva dos años sin crecer con un payout por encima del 80–90 %. Revisa la tesis de cada empresa una vez al año antes de volver a comprar.</p>\n<h2>6. Fiscalidad: el dividendo no es gratis</h2>\n<ul>\n<li>Cada euro de dividendo tributa ese mismo año en la base del ahorro (19 % en el primer tramo), y los de EE.UU. sufren además un 15 % de retención en origen (recuperable vía deducción por doble imposición si lo declaras bien; revisa que tengas el W-8BEN firmado).</li>\n<li>En noviembre de 2023 cambiaste el MSCI World de <b>acumulación a distribución</b>. Para una cartera en fase de construcción, la versión de acumulación difiere impuestos y capitaliza más rápido.</li>\n<li>En España, los <b>fondos indexados</b> permiten traspasos sin tributar y no suelen cobrar por cada aportación: encajan con una aportación mensual mejor que los ETF.</li>\n<li>Los dividendos extraordinarios de Elecnor (154 € en 2024 y 100 € en 2025) inflan la rentabilidad de esos años; no cuentes con que se repitan.</li>\n</ul>\n<h2>7. Datos que conviene cuadrar</h2>\n<p>El número de acciones de la hoja Dividendo no coincide con lo que suman las órdenes en 8 valores (posibles dividendos en acciones u órdenes sin anotar):</p>\n<div class=\"tbl\"><table><thead><tr><th>Activo</th><th class=\"n\">Según órdenes</th><th class=\"n\">Según hoja Dividendo</th></tr></thead><tbody>\n<tr><td>ACS</td><td class=\"n\">30</td><td class=\"n\">35</td></tr><tr><td>Unilever</td><td class=\"n\">23</td><td class=\"n\">20</td></tr><tr><td>Iberdrola</td><td class=\"n\">59</td><td class=\"n\">61</td></tr><tr><td>Shell</td><td class=\"n\">20</td><td class=\"n\">25</td></tr><tr><td>Kraft Heinz</td><td class=\"n\">20</td><td class=\"n\">25</td></tr><tr><td>AT&T</td><td class=\"n\">25</td><td class=\"n\">30</td></tr><tr><td>Pfizer</td><td class=\"n\">20</td><td class=\"n\">25</td></tr><tr><td>Walgreens</td><td class=\"n\">25</td><td class=\"n\">0</td></tr></tbody></table></div>\n<p>También corregí 4 órdenes fechadas en 27/12/2024 que por su posición y por la comprobación anual del Excel son de 27/12/2023 (Kraft Heinz, Invesco High Div, LTC y Logista). Con eso, las aportaciones por año cuadran con las de tu hoja.</p>",
+   "note": "Análisis con los datos del Excel a 9 de noviembre de 2026. Las cifras de plusvalía usan el precio de la última orden de cada activo, no la cotización actual. No soy asesor financiero ni fiscal: esto es información para que decidas tú; valida lo fiscal con un profesional.",
+   "summary": "La constancia es tu mejor activo; las comisiones, tu mayor fuga. Agrupa las compras en menos órdenes y más grandes, concentra el núcleo en indexación global y deja de ampliar empresas cuyo dividendo se recorta."
+  },
+  "divs-2023": {
+   "rows": [
+    {
+     "amount": 2.89,
+     "date": "2023-01-15",
+     "id": "d000",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 1.35,
+     "date": "2023-03-15",
+     "id": "d001",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 2.02,
+     "date": "2023-03-15",
+     "id": "d002",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 0.52,
+     "date": "2023-04-15",
+     "id": "d003",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 0.53,
+     "date": "2023-04-15",
+     "id": "d004",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 3.46,
+     "date": "2023-05-15",
+     "id": "d005",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 0.51,
+     "date": "2023-05-15",
+     "id": "d006",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 0.23,
+     "date": "2023-05-15",
+     "id": "d007",
+     "ticker": "INL"
+    },
+    {
+     "amount": 0.53,
+     "date": "2023-05-15",
+     "id": "d008",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 1.79,
+     "date": "2023-05-15",
+     "id": "d009",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 1.79,
+     "date": "2023-05-15",
+     "id": "d010",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 6.16,
+     "date": "2023-06-15",
+     "id": "d011",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 12.61,
+     "date": "2023-06-15",
+     "id": "d012",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 0.52,
+     "date": "2023-06-15",
+     "id": "d013",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 0.8,
+     "date": "2023-06-15",
+     "id": "d014",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 0.85,
+     "date": "2023-06-15",
+     "id": "d015",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 0.89,
+     "date": "2023-06-15",
+     "id": "d016",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 1.1,
+     "date": "2023-07-15",
+     "id": "d017",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 0.52,
+     "date": "2023-07-15",
+     "id": "d018",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.62,
+     "date": "2023-07-15",
+     "id": "d019",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 7.15,
+     "date": "2023-07-15",
+     "id": "d020",
+     "ticker": "ENG"
+    },
+    {
+     "amount": 4.68,
+     "date": "2023-07-15",
+     "id": "d021",
+     "ticker": "RED"
+    },
+    {
+     "amount": 2.53,
+     "date": "2023-08-15",
+     "id": "d022",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.4,
+     "date": "2023-08-15",
+     "id": "d023",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 1.78,
+     "date": "2023-08-15",
+     "id": "d024",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 2.76,
+     "date": "2023-08-15",
+     "id": "d025",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 8.08,
+     "date": "2023-09-15",
+     "id": "d026",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 10.55,
+     "date": "2023-09-15",
+     "id": "d027",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 3.78,
+     "date": "2023-09-15",
+     "id": "d028",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 1.16,
+     "date": "2023-09-15",
+     "id": "d029",
+     "ticker": "INL"
+    },
+    {
+     "amount": 1.13,
+     "date": "2023-09-15",
+     "id": "d030",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.44,
+     "date": "2023-09-15",
+     "id": "d031",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 0.91,
+     "date": "2023-09-15",
+     "id": "d032",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 0.85,
+     "date": "2023-09-15",
+     "id": "d033",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 2.23,
+     "date": "2023-09-15",
+     "id": "d034",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 1.09,
+     "date": "2023-10-15",
+     "id": "d035",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.44,
+     "date": "2023-10-15",
+     "id": "d036",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.74,
+     "date": "2023-10-15",
+     "id": "d037",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 2.62,
+     "date": "2023-11-15",
+     "id": "d038",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.4,
+     "date": "2023-11-15",
+     "id": "d039",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 5.01,
+     "date": "2023-11-15",
+     "id": "d040",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 7.46,
+     "date": "2023-12-15",
+     "id": "d041",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 4.07,
+     "date": "2023-12-15",
+     "id": "d042",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 1.15,
+     "date": "2023-12-15",
+     "id": "d043",
+     "ticker": "INL"
+    },
+    {
+     "amount": 1.38,
+     "date": "2023-12-15",
+     "id": "d044",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.46,
+     "date": "2023-12-15",
+     "id": "d045",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 0.85,
+     "date": "2023-12-15",
+     "id": "d046",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 2.22,
+     "date": "2023-12-15",
+     "id": "d047",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 0.01,
+     "date": "2023-12-15",
+     "id": "d048",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 7.25,
+     "date": "2023-12-15",
+     "id": "d049",
+     "ticker": "ENG"
+    }
+   ]
+  },
+  "divs-2024": {
+   "rows": [
+    {
+     "amount": 3.82,
+     "date": "2024-01-15",
+     "id": "d050",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 1.2,
+     "date": "2024-01-15",
+     "id": "d051",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 2.9,
+     "date": "2024-01-15",
+     "id": "d052",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 3.2,
+     "date": "2024-01-15",
+     "id": "d053",
+     "ticker": "RED"
+    },
+    {
+     "amount": 4.41,
+     "date": "2024-02-15",
+     "id": "d054",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 2.78,
+     "date": "2024-02-15",
+     "id": "d055",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-02-15",
+     "id": "d056",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 5.32,
+     "date": "2024-02-15",
+     "id": "d057",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 1.13,
+     "date": "2024-02-15",
+     "id": "d058",
+     "ticker": "IBE"
+    },
+    {
+     "amount": 1.43,
+     "date": "2024-02-15",
+     "id": "d059",
+     "ticker": "ACS"
+    },
+    {
+     "amount": 7.71,
+     "date": "2024-03-15",
+     "id": "d060",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 3.13,
+     "date": "2024-03-15",
+     "id": "d061",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 2.53,
+     "date": "2024-03-15",
+     "id": "d062",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 1.25,
+     "date": "2024-03-15",
+     "id": "d063",
+     "ticker": "INL"
+    },
+    {
+     "amount": 2.94,
+     "date": "2024-03-15",
+     "id": "d064",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-03-15",
+     "id": "d065",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.52,
+     "date": "2024-03-15",
+     "id": "d066",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 0.85,
+     "date": "2024-03-15",
+     "id": "d067",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 1.25,
+     "date": "2024-03-15",
+     "id": "d068",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 20.82,
+     "date": "2024-03-15",
+     "id": "d069",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 3.2,
+     "date": "2024-04-15",
+     "id": "d070",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-04-15",
+     "id": "d071",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 3.1,
+     "date": "2024-04-15",
+     "id": "d072",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 5.76,
+     "date": "2024-05-15",
+     "id": "d073",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 2.78,
+     "date": "2024-05-15",
+     "id": "d074",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-05-15",
+     "id": "d075",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 7.98,
+     "date": "2024-05-15",
+     "id": "d076",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 9.12,
+     "date": "2024-06-15",
+     "id": "d077",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 14.4,
+     "date": "2024-06-15",
+     "id": "d078",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 7.53,
+     "date": "2024-06-15",
+     "id": "d079",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 1.15,
+     "date": "2024-06-15",
+     "id": "d080",
+     "ticker": "INL"
+    },
+    {
+     "amount": 3.12,
+     "date": "2024-06-15",
+     "id": "d081",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-06-15",
+     "id": "d082",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.53,
+     "date": "2024-06-15",
+     "id": "d083",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 2.15,
+     "date": "2024-06-15",
+     "id": "d084",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 0.8,
+     "date": "2024-06-15",
+     "id": "d085",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 5.24,
+     "date": "2024-06-15",
+     "id": "d086",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-07-15",
+     "id": "d087",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2,
+     "date": "2024-07-15",
+     "id": "d088",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 24.15,
+     "date": "2024-07-15",
+     "id": "d089",
+     "ticker": "ENG"
+    },
+    {
+     "amount": 16.45,
+     "date": "2024-07-15",
+     "id": "d090",
+     "ticker": "RED"
+    },
+    {
+     "amount": 5.67,
+     "date": "2024-08-15",
+     "id": "d091",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 1.8,
+     "date": "2024-08-15",
+     "id": "d092",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.93,
+     "date": "2024-08-15",
+     "id": "d093",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 6.43,
+     "date": "2024-08-15",
+     "id": "d094",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 5.7,
+     "date": "2024-08-15",
+     "id": "d095",
+     "ticker": "GUI"
+    },
+    {
+     "amount": 8.66,
+     "date": "2024-09-15",
+     "id": "d096",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 11.32,
+     "date": "2024-09-15",
+     "id": "d097",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 3.58,
+     "date": "2024-09-15",
+     "id": "d098",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 0.79,
+     "date": "2024-09-15",
+     "id": "d099",
+     "ticker": "INL"
+    },
+    {
+     "amount": 3.04,
+     "date": "2024-09-15",
+     "id": "d100",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.3,
+     "date": "2024-09-15",
+     "id": "d101",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.51,
+     "date": "2024-09-15",
+     "id": "d102",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 2.17,
+     "date": "2024-09-15",
+     "id": "d103",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 2.35,
+     "date": "2024-09-15",
+     "id": "d104",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 7.86,
+     "date": "2024-09-15",
+     "id": "d105",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 1.84,
+     "date": "2024-10-15",
+     "id": "d106",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 1.98,
+     "date": "2024-10-15",
+     "id": "d107",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 5.64,
+     "date": "2024-10-15",
+     "id": "d108",
+     "ticker": "GUI"
+    },
+    {
+     "amount": 5.37,
+     "date": "2024-11-15",
+     "id": "d109",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 1.81,
+     "date": "2024-11-15",
+     "id": "d110",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.9,
+     "date": "2024-11-15",
+     "id": "d111",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 6.58,
+     "date": "2024-11-15",
+     "id": "d112",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 10.07,
+     "date": "2024-12-15",
+     "id": "d113",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 4.58,
+     "date": "2024-12-15",
+     "id": "d114",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 3.21,
+     "date": "2024-12-15",
+     "id": "d115",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.9,
+     "date": "2024-12-15",
+     "id": "d116",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.62,
+     "date": "2024-12-15",
+     "id": "d117",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 2.19,
+     "date": "2024-12-15",
+     "id": "d118",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 2.5,
+     "date": "2024-12-15",
+     "id": "d119",
+     "ticker": "WBA"
+    },
+    {
+     "amount": 153.73,
+     "date": "2024-12-15",
+     "id": "d120",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 8.51,
+     "date": "2024-12-15",
+     "id": "d121",
+     "ticker": "ENG"
+    }
+   ]
+  },
+  "divs-2025": {
+   "rows": [
+    {
+     "amount": 1.9,
+     "date": "2025-01-15",
+     "id": "d122",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 2.12,
+     "date": "2025-01-15",
+     "id": "d123",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 3.65,
+     "date": "2025-01-15",
+     "id": "d124",
+     "ticker": "RED"
+    },
+    {
+     "amount": 3.51,
+     "date": "2025-01-15",
+     "id": "d125",
+     "ticker": "IBE"
+    },
+    {
+     "amount": 6.21,
+     "date": "2025-02-15",
+     "id": "d126",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 1.9,
+     "date": "2025-02-15",
+     "id": "d127",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.7,
+     "date": "2025-02-15",
+     "id": "d128",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 6.94,
+     "date": "2025-02-15",
+     "id": "d129",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 35.97,
+     "date": "2025-02-15",
+     "id": "d130",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 7.36,
+     "date": "2025-02-15",
+     "id": "d131",
+     "ticker": "ACS"
+    },
+    {
+     "amount": 8.95,
+     "date": "2025-03-15",
+     "id": "d132",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 3.55,
+     "date": "2025-03-15",
+     "id": "d133",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 2.91,
+     "date": "2025-03-15",
+     "id": "d134",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 3.84,
+     "date": "2025-03-15",
+     "id": "d135",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.74,
+     "date": "2025-03-15",
+     "id": "d136",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 5.12,
+     "date": "2025-03-15",
+     "id": "d137",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 4.58,
+     "date": "2025-03-15",
+     "id": "d138",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 1.75,
+     "date": "2025-04-15",
+     "id": "d139",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 4.1,
+     "date": "2025-04-15",
+     "id": "d140",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 5.85,
+     "date": "2025-04-15",
+     "id": "d141",
+     "ticker": "GUI"
+    },
+    {
+     "amount": 8.55,
+     "date": "2025-05-15",
+     "id": "d142",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 2.58,
+     "date": "2025-05-15",
+     "id": "d143",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 1.75,
+     "date": "2025-05-15",
+     "id": "d144",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 8.4,
+     "date": "2025-05-15",
+     "id": "d145",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 14.44,
+     "date": "2025-06-15",
+     "id": "d146",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 18.13,
+     "date": "2025-06-15",
+     "id": "d147",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 8.92,
+     "date": "2025-06-15",
+     "id": "d148",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 3.65,
+     "date": "2025-06-15",
+     "id": "d149",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 1.75,
+     "date": "2025-06-15",
+     "id": "d150",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 4.7,
+     "date": "2025-06-15",
+     "id": "d151",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 9.06,
+     "date": "2025-06-15",
+     "id": "d152",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 3,
+     "date": "2025-06-15",
+     "id": "d153",
+     "ticker": "PFE"
+    },
+    {
+     "amount": 100.15,
+     "date": "2025-06-15",
+     "id": "d154",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 2.3,
+     "date": "2025-07-15",
+     "id": "d155",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 3.93,
+     "date": "2025-07-15",
+     "id": "d156",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 18,
+     "date": "2025-07-15",
+     "id": "d157",
+     "ticker": "ENG"
+    },
+    {
+     "amount": 18.23,
+     "date": "2025-07-15",
+     "id": "d158",
+     "ticker": "RED"
+    },
+    {
+     "amount": 30.06,
+     "date": "2025-07-15",
+     "id": "d159",
+     "ticker": "ACS"
+    },
+    {
+     "amount": 9.13,
+     "date": "2025-08-15",
+     "id": "d160",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 3.32,
+     "date": "2025-08-15",
+     "id": "d161",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 2.29,
+     "date": "2025-08-15",
+     "id": "d162",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 8.11,
+     "date": "2025-08-15",
+     "id": "d163",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 16.93,
+     "date": "2025-08-15",
+     "id": "d164",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 12.31,
+     "date": "2025-09-15",
+     "id": "d165",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 16.23,
+     "date": "2025-09-15",
+     "id": "d166",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 3.3,
+     "date": "2025-09-15",
+     "id": "d167",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 4.8,
+     "date": "2025-09-15",
+     "id": "d168",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 2.26,
+     "date": "2025-09-15",
+     "id": "d169",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 4.61,
+     "date": "2025-09-15",
+     "id": "d170",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 9.1,
+     "date": "2025-09-15",
+     "id": "d171",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 2.58,
+     "date": "2025-09-15",
+     "id": "d172",
+     "ticker": "PFE"
+    },
+    {
+     "amount": 2.26,
+     "date": "2025-10-15",
+     "id": "d173",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 3.93,
+     "date": "2025-10-15",
+     "id": "d174",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 8.25,
+     "date": "2025-11-15",
+     "id": "d175",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 3.34,
+     "date": "2025-11-15",
+     "id": "d176",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 2.31,
+     "date": "2025-11-15",
+     "id": "d177",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 10.4,
+     "date": "2025-11-15",
+     "id": "d178",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 17.61,
+     "date": "2025-12-15",
+     "id": "d179",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 6.79,
+     "date": "2025-12-15",
+     "id": "d180",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 4.04,
+     "date": "2025-12-15",
+     "id": "d181",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 4.81,
+     "date": "2025-12-15",
+     "id": "d182",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 2.26,
+     "date": "2025-12-15",
+     "id": "d183",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 6.15,
+     "date": "2025-12-15",
+     "id": "d184",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 8.9,
+     "date": "2025-12-15",
+     "id": "d185",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 10.81,
+     "date": "2025-12-15",
+     "id": "d186",
+     "ticker": "GUI"
+    },
+    {
+     "amount": 5.19,
+     "date": "2025-12-15",
+     "id": "d187",
+     "ticker": "PFE"
+    },
+    {
+     "amount": 1.85,
+     "date": "2025-12-15",
+     "id": "d188",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 15,
+     "date": "2025-12-15",
+     "id": "d189",
+     "ticker": "ENG"
+    }
+   ]
+  },
+  "divs-2026": {
+   "rows": [
+    {
+     "amount": 2.66,
+     "date": "2026-01-15",
+     "id": "d190",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 6.89,
+     "date": "2026-01-15",
+     "id": "d191",
+     "ticker": "RED"
+    },
+    {
+     "amount": 8.38,
+     "date": "2026-01-15",
+     "id": "d192",
+     "ticker": "IBE"
+    },
+    {
+     "amount": 8.79,
+     "date": "2026-02-15",
+     "id": "d193",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 4.86,
+     "date": "2026-02-15",
+     "id": "d194",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 2.25,
+     "date": "2026-02-15",
+     "id": "d195",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 12.07,
+     "date": "2026-02-15",
+     "id": "d196",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 5.77,
+     "date": "2026-02-15",
+     "id": "d197",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 60.75,
+     "date": "2026-02-15",
+     "id": "d198",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 9.45,
+     "date": "2026-02-15",
+     "id": "d199",
+     "ticker": "ACS"
+    },
+    {
+     "amount": 14.88,
+     "date": "2026-03-15",
+     "id": "d200",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 5.01,
+     "date": "2026-03-15",
+     "id": "d201",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 3.39,
+     "date": "2026-03-15",
+     "id": "d202",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 6.06,
+     "date": "2026-03-15",
+     "id": "d203",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 2.89,
+     "date": "2026-03-15",
+     "id": "d204",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 6.31,
+     "date": "2026-03-15",
+     "id": "d205",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 5.1,
+     "date": "2026-03-15",
+     "id": "d206",
+     "ticker": "PFE"
+    },
+    {
+     "amount": 2.84,
+     "date": "2026-04-15",
+     "id": "d207",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 7.93,
+     "date": "2026-04-15",
+     "id": "d208",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 5.01,
+     "date": "2026-04-15",
+     "id": "d209",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 10.77,
+     "date": "2026-05-15",
+     "id": "d210",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 4.15,
+     "date": "2026-05-15",
+     "id": "d211",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 2.84,
+     "date": "2026-05-15",
+     "id": "d212",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 10.57,
+     "date": "2026-05-15",
+     "id": "d213",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 18.54,
+     "date": "2026-06-15",
+     "id": "d214",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 6.47,
+     "date": "2026-06-15",
+     "id": "d215",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 11.19,
+     "date": "2026-06-15",
+     "id": "d216",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 6.07,
+     "date": "2026-06-15",
+     "id": "d217",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 2.89,
+     "date": "2026-06-15",
+     "id": "d218",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 8.4,
+     "date": "2026-06-15",
+     "id": "d219",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 7.93,
+     "date": "2026-06-15",
+     "id": "d220",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 4.26,
+     "date": "2026-06-15",
+     "id": "d221",
+     "ticker": "GUI"
+    },
+    {
+     "amount": 6.45,
+     "date": "2026-06-15",
+     "id": "d222",
+     "ticker": "PFE"
+    },
+    {
+     "amount": 16.14,
+     "date": "2026-06-15",
+     "id": "d223",
+     "ticker": "ENO"
+    },
+    {
+     "amount": 2.91,
+     "date": "2026-07-15",
+     "id": "d224",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 5.07,
+     "date": "2026-07-15",
+     "id": "d225",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 25.5,
+     "date": "2026-07-15",
+     "id": "d226",
+     "ticker": "ENG"
+    },
+    {
+     "amount": 27.95,
+     "date": "2026-07-15",
+     "id": "d227",
+     "ticker": "RED"
+    },
+    {
+     "amount": 46.19,
+     "date": "2026-07-15",
+     "id": "d228",
+     "ticker": "ACS"
+    },
+    {
+     "amount": 11.24,
+     "date": "2026-08-15",
+     "id": "d229",
+     "ticker": "IWDP"
+    },
+    {
+     "amount": 4.26,
+     "date": "2026-08-15",
+     "id": "d230",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 2.85,
+     "date": "2026-08-15",
+     "id": "d231",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 10.84,
+     "date": "2026-08-15",
+     "id": "d232",
+     "ticker": "BAC"
+    },
+    {
+     "amount": 22.28,
+     "date": "2026-08-15",
+     "id": "d233",
+     "ticker": "LOG"
+    },
+    {
+     "amount": 19.75,
+     "date": "2026-09-15",
+     "id": "d234",
+     "ticker": "HDLV"
+    },
+    {
+     "amount": 23.81,
+     "date": "2026-09-15",
+     "id": "d235",
+     "ticker": "EXSA"
+    },
+    {
+     "amount": 4.03,
+     "date": "2026-09-15",
+     "id": "d236",
+     "ticker": "IWRD"
+    },
+    {
+     "amount": 6.1,
+     "date": "2026-09-15",
+     "id": "d237",
+     "ticker": "KHNZ"
+    },
+    {
+     "amount": 2.85,
+     "date": "2026-09-15",
+     "id": "d238",
+     "ticker": "LTC"
+    },
+    {
+     "amount": 8.41,
+     "date": "2026-09-15",
+     "id": "d239",
+     "ticker": "SHELL"
+    },
+    {
+     "amount": 9.26,
+     "date": "2026-09-15",
+     "id": "d240",
+     "ticker": "UNA"
+    },
+    {
+     "amount": 6.6,
+     "date": "2026-09-15",
+     "id": "d241",
+     "ticker": "PFE"
+    },
+    {
+     "amount": 5.19,
+     "date": "2026-11-12",
+     "id": "umwdrofv562ov",
+     "ticker": "SOBA"
+    },
+    {
+     "amount": 6.17,
+     "date": "2026-10-12",
+     "id": "umwdtcr1jeo9v",
+     "ticker": "CTP2"
+    },
+    {
+     "amount": 2.96,
+     "date": "2026-10-15",
+     "id": "umwdtjr36tisx",
+     "ticker": "LTC"
+    }
+   ]
+  },
+  "meta": {
+   "catalog": {
+    "ACS": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "divOrder": 21,
+     "isin": "ES0167050915",
+     "kind": "Acción",
+     "mkt": "BMEX",
+     "name": "ACS",
+     "region": "España",
+     "sector": "Construcción",
+     "sumOrder": 1,
+     "xlName": "ACS",
+     "xlSector": "Contruct&Engin"
+    },
+    "BAC": {
+     "bolsa": "XET",
+     "broker": "DeGiro",
+     "centro": "XETB",
+     "divOrder": 11,
+     "isin": "US92343V1044",
+     "kind": "Acción",
+     "mkt": "XETR",
+     "name": "Verizon",
+     "region": "EE.UU.",
+     "sector": "Telecom",
+     "sumOrder": 15,
+     "xlName": "VERIZON COMMUNICATIONS INC",
+     "xlSector": "Telecommunic"
+    },
+    "CTP2": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 13,
+     "isin": "US20030N1019",
+     "kind": "Acción",
+     "mkt": "XFRA",
+     "name": "Comcast",
+     "region": "EE.UU.",
+     "sector": "Telecom",
+     "sumOrder": 3,
+     "xlName": "COMCAST CORP",
+     "xlSector": "Telecommunic"
+    },
+    "EMA": {
+     "bolsa": "EAM",
+     "broker": "DeGiro",
+     "centro": "XAMS",
+     "isin": "IE00B4L5YC18",
+     "kind": "ETF",
+     "name": "iShares MSCI EM (Acc)",
+     "region": "Emergentes",
+     "sector": "Emergentes",
+     "xlName": "ISHARES MSCI EM A"
+    },
+    "ENG": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "divOrder": 17,
+     "isin": "ES0130960018",
+     "kind": "Acción",
+     "mkt": "BMEX",
+     "name": "Enagás",
+     "region": "España",
+     "sector": "Energía",
+     "sumOrder": 6,
+     "xlName": "ENAGAS",
+     "xlSector": "Oil&Gas"
+    },
+    "ENO": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "divOrder": 16,
+     "isin": "ES0129743318",
+     "kind": "Acción",
+     "mkt": "BMEX",
+     "name": "Elecnor",
+     "region": "España",
+     "sector": "Construcción",
+     "sumOrder": 4,
+     "xlName": "ELECNOR",
+     "xlSector": "Contruct&Engin"
+    },
+    "EXSA": {
+     "bolsa": "XET",
+     "broker": "DeGiro",
+     "centro": "XETA",
+     "divOrder": 2,
+     "isin": "DE0002635307",
+     "kind": "ETF",
+     "mkt": "XFRA",
+     "name": "iShares STOXX Europe 600",
+     "region": "Europa",
+     "sector": "Europa",
+     "sumOrder": 20,
+     "xlName": "ISHARES STOXX EUROPE 600 UCITS ETF (DE)",
+     "xlSector": "ETF"
+    },
+    "GRF": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "isin": "ES0171996087",
+     "kind": "Acción",
+     "name": "Grifols",
+     "region": "España",
+     "sector": "Salud",
+     "xlName": "GRIFOLS SA"
+    },
+    "GUI": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 14,
+     "isin": "GB0002374006",
+     "kind": "Acción",
+     "mkt": "XETR",
+     "name": "Diageo",
+     "region": "Reino Unido",
+     "sector": "Bebidas",
+     "sumOrder": 13,
+     "xlName": "DIAGEO",
+     "xlSector": "Drinks"
+    },
+    "HDLV": {
+     "bolsa": "XET",
+     "broker": "DeGiro",
+     "centro": "XETA",
+     "divOrder": 1,
+     "isin": "IE00BWTN6Y99",
+     "kind": "ETF",
+     "mkt": "XETR",
+     "name": "Invesco S&P 500 High Div Low Vol",
+     "region": "EE.UU.",
+     "sector": "EE.UU. dividendo",
+     "sumOrder": 19,
+     "xlName": "INVESCO S&P 500 HIGH DIV LOW VOL UCITS ETF DIS",
+     "xlSector": "ETF"
+    },
+    "IBE": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "divOrder": 20,
+     "isin": "ES0144580Y14",
+     "kind": "Acción",
+     "mkt": "BMEX",
+     "name": "Iberdrola",
+     "region": "España",
+     "sector": "Eléctricas",
+     "sumOrder": 7,
+     "xlName": "IBERDROLA",
+     "xlSector": "Electrical"
+    },
+    "INL": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 6,
+     "flag": "dividendo suspendido",
+     "isin": "US4581401001",
+     "kind": "Acción",
+     "mkt": "XFRA",
+     "name": "Intel",
+     "region": "EE.UU.",
+     "sector": "Tecnología",
+     "sumOrder": 8,
+     "xlName": "INTEL CORP",
+     "xlSector": "IT Technology"
+    },
+    "IWDA": {
+     "bolsa": "EAM",
+     "broker": "DeGiro",
+     "centro": "XAMS",
+     "isin": "IE00B4L5Y983",
+     "kind": "ETF",
+     "name": "iShares MSCI World (Acc)",
+     "region": "Global",
+     "sector": "Global",
+     "xlName": "ISHARES MSCI WOR A"
+    },
+    "IWDP": {
+     "bolsa": "EAM",
+     "broker": "DeGiro",
+     "centro": "XAMS",
+     "divOrder": 3,
+     "isin": "IE00B1FZS350",
+     "kind": "ETF",
+     "mkt": "XAMS",
+     "name": "iShares Global Property",
+     "region": "Global",
+     "sector": "Inmobiliario",
+     "sumOrder": 21,
+     "xlName": "ISHARES PROP GLO",
+     "xlSector": "ETF"
+    },
+    "IWRD": {
+     "bolsa": "EAM",
+     "broker": "DeGiro",
+     "centro": "XAMS",
+     "divOrder": 4,
+     "isin": "IE00B0M62Q58",
+     "kind": "ETF",
+     "mkt": "XAMS",
+     "name": "iShares MSCI World (Dist)",
+     "region": "Global",
+     "sector": "Global",
+     "sumOrder": 18,
+     "xlName": "ISHARES MSCI WOR D",
+     "xlSector": "ETF"
+    },
+    "KHNZ": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 7,
+     "isin": "US5007541064",
+     "kind": "Acción",
+     "mkt": "XETR",
+     "name": "Kraft Heinz",
+     "region": "EE.UU.",
+     "sector": "Alimentación",
+     "sumOrder": 9,
+     "xlName": "Kraft Heinz Co",
+     "xlSector": "Foods"
+    },
+    "LOG": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "divOrder": 18,
+     "isin": "ES0105027009",
+     "kind": "Acción",
+     "mkt": "BMEX",
+     "name": "Logista",
+     "region": "España",
+     "sector": "Logística",
+     "sumOrder": 5,
+     "xlName": "LOGISTA",
+     "xlSector": "Logistics"
+    },
+    "LTC": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 8,
+     "isin": "US5021751020",
+     "kind": "Acción",
+     "mkt": "XNYS",
+     "name": "LTC Properties",
+     "region": "EE.UU.",
+     "sector": "REIT",
+     "sumOrder": 10,
+     "xlName": "LTC PROPERTIES INC",
+     "xlSector": "REIT"
+    },
+    "PFE": {
+     "bolsa": "XET",
+     "broker": "DeGiro",
+     "centro": "XETB",
+     "divOrder": 15,
+     "isin": "US7170811035",
+     "kind": "Acción",
+     "mkt": "XETR",
+     "name": "Pfizer",
+     "region": "EE.UU.",
+     "sector": "Salud",
+     "sumOrder": 17,
+     "xlName": "PFIZER",
+     "xlSector": "Drug Retail"
+    },
+    "RED": {
+     "bolsa": "MAD",
+     "broker": "CaixaBank",
+     "centro": "XMAD",
+     "divOrder": 19,
+     "isin": "ES0173093024",
+     "kind": "Acción",
+     "mkt": "BMEX",
+     "name": "Redeia",
+     "region": "España",
+     "sector": "Eléctricas",
+     "sumOrder": 11,
+     "xlName": "RED ELECTRICA",
+     "xlSector": "Electrical"
+    },
+    "SHELL": {
+     "bolsa": "EAM",
+     "broker": "DeGiro",
+     "centro": "XAMS",
+     "divOrder": 9,
+     "isin": "GB00BP6MXD84",
+     "kind": "Acción",
+     "mkt": "XAMS",
+     "name": "Shell",
+     "region": "Reino Unido",
+     "sector": "Energía",
+     "sumOrder": 12,
+     "xlName": "SHELL PLC",
+     "xlSector": "Oil&Gas"
+    },
+    "SOBA": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 5,
+     "isin": "US00206R1023",
+     "kind": "Acción",
+     "mkt": "XFRA",
+     "name": "AT&T",
+     "region": "EE.UU.",
+     "sector": "Telecom",
+     "sumOrder": 2,
+     "xlName": "AT&T INC",
+     "xlSector": "Telecommunic"
+    },
+    "UNA": {
+     "bolsa": "EAM",
+     "broker": "DeGiro",
+     "centro": "XAMS",
+     "divOrder": 10,
+     "isin": "GB00B10RZP78",
+     "kind": "Acción",
+     "mkt": "XAMS",
+     "name": "Unilever",
+     "region": "Reino Unido",
+     "sector": "Consumo",
+     "sumOrder": 14,
+     "xlName": "UNILEVER",
+     "xlSector": "Household"
+    },
+    "WBA": {
+     "bolsa": "TDG",
+     "broker": "DeGiro",
+     "centro": "XGAT",
+     "divOrder": 12,
+     "flag": "excluida de bolsa: registra la salida",
+     "isin": "US9314271084",
+     "kind": "Acción",
+     "mkt": "XNAS",
+     "name": "Walgreens",
+     "region": "EE.UU.",
+     "sector": "Farmacia",
+     "sumOrder": 16,
+     "xlName": "WALGREENS BOOTS ALLIANCE INC",
+     "xlSector": "Drug Retail"
+    }
+   },
+   "prices": {
+    "ACS": {
+     "date": "2026-04-01",
+     "price": 112.35,
+     "src": "última orden"
+    },
+    "BAC": {
+     "date": "2025-09-04",
+     "price": 37.68,
+     "src": "última orden"
+    },
+    "CTP2": {
+     "date": "2026-10-01",
+     "price": 19.228,
+     "src": "última orden"
+    },
+    "EMA": {
+     "date": "2023-04-03",
+     "price": 31.65,
+     "src": "última orden"
+    },
+    "ENG": {
+     "date": "2026-05-16",
+     "price": 16.59,
+     "src": "última orden"
+    },
+    "ENO": {
+     "date": "2026-09-02",
+     "price": 30.4,
+     "src": "última orden"
+    },
+    "EXSA": {
+     "date": "2026-03-18",
+     "price": 59.18,
+     "src": "última orden"
+    },
+    "GRF": {
+     "date": "2024-05-18",
+     "price": 10,
+     "src": "última orden"
+    },
+    "GUI": {
+     "date": "2026-08-04",
+     "price": 19.205,
+     "src": "última orden"
+    },
+    "HDLV": {
+     "date": "2026-07-13",
+     "price": 34.18,
+     "src": "última orden"
+    },
+    "IBE": {
+     "date": "2026-07-04",
+     "price": 21.76,
+     "src": "última orden"
+    },
+    "INL": {
+     "date": "2025-05-05",
+     "price": 18,
+     "src": "última orden"
+    },
+    "IWDA": {
+     "date": "2023-11-01",
+     "price": 76,
+     "src": "última orden"
+    },
+    "IWDP": {
+     "date": "2026-09-02",
+     "price": 21.825,
+     "src": "última orden"
+    },
+    "IWRD": {
+     "date": "2026-03-18",
+     "price": 80.765,
+     "src": "última orden"
+    },
+    "KHNZ": {
+     "date": "2026-02-12",
+     "price": 20.61,
+     "src": "última orden"
+    },
+    "LOG": {
+     "date": "2026-02-22",
+     "price": 33.54,
+     "src": "última orden"
+    },
+    "LTC": {
+     "date": "2026-03-18",
+     "price": 33.64,
+     "src": "última orden"
+    },
+    "PFE": {
+     "date": "2026-03-18",
+     "price": 23.59,
+     "src": "última orden"
+    },
+    "RED": {
+     "date": "2026-06-13",
+     "price": 15.11,
+     "src": "última orden"
+    },
+    "SHELL": {
+     "date": "2026-05-04",
+     "price": 38.475,
+     "src": "última orden"
+    },
+    "SOBA": {
+     "date": "2026-09-28",
+     "price": 21.935,
+     "src": "última orden"
+    },
+    "UNA": {
+     "date": "2026-06-03",
+     "price": 47.985,
+     "src": "última orden"
+    },
+    "WBA": {
+     "date": "2025-02-04",
+     "price": 9.42,
+     "src": "última orden"
+    }
+   }
+  },
+  "orders-2022": {
+   "rows": [
+    {
+     "date": "2022-09-07",
+     "fee": 0,
+     "id": "o000",
+     "price": 72.805,
+     "qty": 7,
+     "ticker": "IWDA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-09-07",
+     "fee": 0,
+     "id": "o001",
+     "price": 33.265,
+     "qty": 10,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-09-07",
+     "fee": 0,
+     "id": "o002",
+     "price": 40.94,
+     "qty": 3,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-10-03",
+     "fee": 0,
+     "id": "o003",
+     "price": 68.085,
+     "qty": 2,
+     "ticker": "IWDA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-10-03",
+     "fee": 0,
+     "id": "o004",
+     "price": 30.65,
+     "qty": 2,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-10-03",
+     "fee": 0,
+     "id": "o005",
+     "price": 37.89,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-11-01",
+     "fee": 0,
+     "id": "o006",
+     "price": 30.15,
+     "qty": 3,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-11-01",
+     "fee": 0,
+     "id": "o007",
+     "price": 72.74,
+     "qty": 1,
+     "ticker": "IWDA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-11-01",
+     "fee": 0,
+     "id": "o008",
+     "price": 41.085,
+     "qty": 3,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-12-02",
+     "fee": 0,
+     "id": "o009",
+     "price": 73.135,
+     "qty": 2,
+     "ticker": "IWDA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-12-02",
+     "fee": 0,
+     "id": "o010",
+     "price": 31.93,
+     "qty": 1,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2022-12-02",
+     "fee": 0,
+     "id": "o011",
+     "price": 43.955,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    }
+   ]
+  },
+  "orders-2023": {
+   "rows": [
+    {
+     "date": "2023-01-02",
+     "fee": 0,
+     "id": "o012",
+     "price": 31.075,
+     "qty": 1,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-01-02",
+     "fee": 0,
+     "id": "o013",
+     "price": 42.495,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-01-02",
+     "fee": 0,
+     "id": "o014",
+     "price": 69.485,
+     "qty": 2,
+     "ticker": "IWDA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-02-01",
+     "fee": 0,
+     "id": "o015",
+     "price": 33.245,
+     "qty": 1,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-02-01",
+     "fee": 0,
+     "id": "o016",
+     "price": 71.99,
+     "qty": 1,
+     "ticker": "IWDA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-02-01",
+     "fee": 0,
+     "id": "o017",
+     "price": 44.93,
+     "qty": 3,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-02-17",
+     "fee": 1,
+     "id": "o018",
+     "price": 32.445,
+     "qty": 3,
+     "ticker": "EMA",
+     "type": "sell"
+    },
+    {
+     "date": "2023-02-21",
+     "fee": 0,
+     "id": "o019",
+     "price": 31.68,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-02-21",
+     "fee": 0,
+     "id": "o020",
+     "price": 21.95,
+     "qty": 7,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-02",
+     "fee": 0,
+     "id": "o021",
+     "price": 21.095,
+     "qty": 3,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-24",
+     "fee": 0,
+     "id": "o022",
+     "price": 31.205,
+     "qty": 1,
+     "ticker": "EMA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-24",
+     "fee": 0,
+     "id": "o023",
+     "price": 43.32,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-24",
+     "fee": 0,
+     "id": "o024",
+     "price": 27.715,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-27",
+     "fee": 1,
+     "id": "o025",
+     "price": 8.866,
+     "qty": 2,
+     "ticker": "GRF",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-27",
+     "fee": 10,
+     "id": "o026",
+     "price": 11.5,
+     "qty": 2,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-27",
+     "fee": 10,
+     "id": "o027",
+     "price": 17.3,
+     "qty": 2,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-27",
+     "fee": 10,
+     "id": "o028",
+     "price": 22.8,
+     "qty": 2,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-27",
+     "fee": 10,
+     "id": "o029",
+     "price": 15.8,
+     "qty": 2,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-29",
+     "fee": 3.9,
+     "id": "o030",
+     "price": 17.512,
+     "qty": 2,
+     "ticker": "SOBA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-29",
+     "fee": 3.9,
+     "id": "o031",
+     "price": 28.845,
+     "qty": 2,
+     "ticker": "INL",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-29",
+     "fee": 3.9,
+     "id": "o032",
+     "price": 31.67,
+     "qty": 3,
+     "ticker": "LTC",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-30",
+     "fee": 4.9,
+     "id": "o033",
+     "price": 35.5,
+     "qty": 3,
+     "ticker": "BAC",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-30",
+     "fee": 4.9,
+     "id": "o034",
+     "price": 26.25,
+     "qty": 3,
+     "ticker": "SHELL",
+     "type": "buy"
+    },
+    {
+     "date": "2023-03-31",
+     "fee": 4.9,
+     "id": "o035",
+     "price": 47.635,
+     "qty": 2,
+     "ticker": "UNA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 3.9,
+     "id": "o036",
+     "price": 34.98,
+     "qty": 2,
+     "ticker": "CTP2",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 3.9,
+     "id": "o037",
+     "price": 32.24,
+     "qty": 2,
+     "ticker": "WBA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 0,
+     "id": "o038",
+     "price": 45.37,
+     "qty": 3,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 0,
+     "id": "o039",
+     "price": 20.493,
+     "qty": 3,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 0,
+     "id": "o040",
+     "price": 29.435,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 0,
+     "id": "o041",
+     "price": 31.635,
+     "qty": 13,
+     "ticker": "EMA",
+     "type": "sell"
+    },
+    {
+     "date": "2023-04-03",
+     "fee": 0,
+     "id": "o042",
+     "price": 31.65,
+     "qty": 3,
+     "ticker": "EMA",
+     "type": "sell"
+    },
+    {
+     "date": "2023-04-05",
+     "fee": 10,
+     "id": "o043",
+     "price": 16.3,
+     "qty": 2,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-05",
+     "fee": 10,
+     "id": "o044",
+     "price": 17.8,
+     "qty": 2,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-05",
+     "fee": 10,
+     "id": "o045",
+     "price": 12.1,
+     "qty": 2,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-05",
+     "fee": 10,
+     "id": "o046",
+     "price": 22.8,
+     "qty": 2,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-19",
+     "fee": 3.9,
+     "id": "o047",
+     "price": 18.115,
+     "qty": 8,
+     "ticker": "SOBA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-19",
+     "fee": 1,
+     "id": "o048",
+     "price": 20.244,
+     "qty": 2,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-19",
+     "fee": 1,
+     "id": "o049",
+     "price": 46.33,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-19",
+     "fee": 1,
+     "id": "o050",
+     "price": 29.46,
+     "qty": 2,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-19",
+     "fee": 1,
+     "id": "o051",
+     "price": 9.17,
+     "qty": 7,
+     "ticker": "GRF",
+     "type": "buy"
+    },
+    {
+     "date": "2023-04-19",
+     "fee": 3.9,
+     "id": "o052",
+     "price": 35.94,
+     "qty": 3,
+     "ticker": "KHNZ",
+     "type": "buy"
+    },
+    {
+     "date": "2023-05-02",
+     "fee": 0,
+     "id": "o053",
+     "price": 28.425,
+     "qty": 3,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-05-02",
+     "fee": 0,
+     "id": "o054",
+     "price": 46.16,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-05-02",
+     "fee": 3.9,
+     "id": "o055",
+     "price": 37.43,
+     "qty": 8,
+     "ticker": "CTP2",
+     "type": "buy"
+    },
+    {
+     "date": "2023-05-02",
+     "fee": 10,
+     "id": "o056",
+     "price": 11.85,
+     "qty": 6,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2023-05-02",
+     "fee": 10,
+     "id": "o057",
+     "price": 24.32,
+     "qty": 6,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-06-04",
+     "fee": 10.2,
+     "id": "o058",
+     "price": 16.02,
+     "qty": 6,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2023-06-04",
+     "fee": 10.2,
+     "id": "o059",
+     "price": 18.2,
+     "qty": 6,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-06-26",
+     "fee": 3.9,
+     "id": "o060",
+     "price": 30.4,
+     "qty": 8,
+     "ticker": "INL",
+     "type": "buy"
+    },
+    {
+     "date": "2023-06-26",
+     "fee": 1,
+     "id": "o061",
+     "price": 19.36,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2023-06-26",
+     "fee": 3.9,
+     "id": "o062",
+     "price": 29,
+     "qty": 3,
+     "ticker": "WBA",
+     "type": "buy"
+    },
+    {
+     "date": "2023-07-22",
+     "fee": 20.4,
+     "id": "o063",
+     "price": 11.52,
+     "qty": 20,
+     "ticker": "IBE",
+     "type": "buy"
+    },
+    {
+     "date": "2023-08-01",
+     "fee": 3.9,
+     "id": "o064",
+     "price": 30.75,
+     "qty": 5,
+     "ticker": "LTC",
+     "type": "buy"
+    },
+    {
+     "date": "2023-08-01",
+     "fee": 1,
+     "id": "o065",
+     "price": 29.45,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-08-23",
+     "fee": 10,
+     "id": "o066",
+     "price": 13.8,
+     "qty": 10,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2023-09-25",
+     "fee": 4.9,
+     "id": "o067",
+     "price": 30.3,
+     "qty": 5,
+     "ticker": "SHELL",
+     "type": "buy"
+    },
+    {
+     "date": "2023-09-25",
+     "fee": 1,
+     "id": "o068",
+     "price": 19.5,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2023-09-25",
+     "fee": 4.9,
+     "id": "o069",
+     "price": 31.33,
+     "qty": 5,
+     "ticker": "BAC",
+     "type": "buy"
+    },
+    {
+     "date": "2023-09-26",
+     "fee": 10,
+     "id": "o070",
+     "price": 14.9,
+     "qty": 10,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2023-10-24",
+     "fee": 10.2,
+     "id": "o071",
+     "price": 32.4,
+     "qty": 10,
+     "ticker": "ACS",
+     "type": "buy"
+    },
+    {
+     "date": "2023-11-01",
+     "fee": 1,
+     "id": "o072",
+     "price": 57,
+     "qty": 20,
+     "ticker": "IWRD",
+     "type": "buy"
+    },
+    {
+     "date": "2023-11-01",
+     "fee": 1,
+     "id": "o073",
+     "price": 76,
+     "qty": 15,
+     "ticker": "IWDA",
+     "type": "sell"
+    },
+    {
+     "date": "2023-11-23",
+     "fee": 10.8,
+     "id": "o074",
+     "price": 16.58,
+     "qty": 5,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2023-12-27",
+     "fee": 3.9,
+     "id": "o075",
+     "price": 33.14,
+     "qty": 5,
+     "ticker": "KHNZ",
+     "type": "buy"
+    },
+    {
+     "date": "2023-12-27",
+     "fee": 3,
+     "id": "o076",
+     "price": 29,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2023-12-27",
+     "fee": 3.9,
+     "id": "o077",
+     "price": 29.6,
+     "qty": 3,
+     "ticker": "LTC",
+     "type": "buy"
+    },
+    {
+     "date": "2023-12-27",
+     "fee": 10.2,
+     "id": "o078",
+     "price": 24.06,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    }
+   ]
+  },
+  "orders-2024": {
+   "rows": [
+    {
+     "date": "2024-01-01",
+     "fee": 38,
+     "id": "o079",
+     "note": "Custodia De Valores",
+     "price": 0,
+     "qty": 0,
+     "ticker": "",
+     "type": "fee"
+    },
+    {
+     "date": "2024-01-23",
+     "fee": 10.2,
+     "id": "o080",
+     "price": 25.32,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2024-02-01",
+     "fee": 7.5,
+     "id": "o081",
+     "note": "Comision Degiro",
+     "price": 0,
+     "qty": 0,
+     "ticker": "",
+     "type": "fee"
+    },
+    {
+     "date": "2024-02-25",
+     "fee": 10.1,
+     "id": "o082",
+     "price": 14.82,
+     "qty": 5,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-21",
+     "fee": 10.4,
+     "id": "o083",
+     "price": 39.6,
+     "qty": 5,
+     "ticker": "ACS",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-25",
+     "fee": 3.9,
+     "id": "o084",
+     "price": 34,
+     "qty": 10,
+     "ticker": "GUI",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-26",
+     "fee": 4.9,
+     "id": "o085",
+     "price": 45.9,
+     "qty": 3,
+     "ticker": "UNA",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-26",
+     "fee": 1,
+     "id": "o086",
+     "price": 20.6,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-26",
+     "fee": 3.9,
+     "id": "o087",
+     "price": 33.4,
+     "qty": 4,
+     "ticker": "KHNZ",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-26",
+     "fee": 4.9,
+     "id": "o088",
+     "price": 37.73,
+     "qty": 4,
+     "ticker": "BAC",
+     "type": "buy"
+    },
+    {
+     "date": "2024-03-26",
+     "fee": 3,
+     "id": "o089",
+     "price": 67.32,
+     "qty": 2,
+     "ticker": "IWRD",
+     "type": "buy"
+    },
+    {
+     "date": "2024-04-25",
+     "fee": 10.2,
+     "id": "o090",
+     "price": 11.53,
+     "qty": 10,
+     "ticker": "IBE",
+     "type": "buy"
+    },
+    {
+     "date": "2024-05-18",
+     "fee": 2,
+     "id": "o091",
+     "price": 10,
+     "qty": 9,
+     "ticker": "GRF",
+     "type": "sell"
+    },
+    {
+     "date": "2024-05-25",
+     "fee": 10,
+     "id": "o092",
+     "price": 13.95,
+     "qty": 10,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2024-06-13",
+     "fee": 3.9,
+     "id": "o093",
+     "price": 14.498,
+     "qty": 10,
+     "ticker": "WBA",
+     "type": "buy"
+    },
+    {
+     "date": "2024-06-13",
+     "fee": 3,
+     "id": "o094",
+     "price": 69.095,
+     "qty": 3,
+     "ticker": "IWRD",
+     "type": "buy"
+    },
+    {
+     "date": "2024-06-13",
+     "fee": 4.9,
+     "id": "o095",
+     "price": 36.89,
+     "qty": 3,
+     "ticker": "BAC",
+     "type": "buy"
+    },
+    {
+     "date": "2024-06-15",
+     "fee": 10.5,
+     "id": "o096",
+     "price": 17.4,
+     "qty": 10,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2024-09-30",
+     "fee": 10.38,
+     "id": "o097",
+     "price": 19.04,
+     "qty": 10,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2024-09-30",
+     "fee": 3.9,
+     "id": "o098",
+     "price": 31.995,
+     "qty": 5,
+     "ticker": "GUI",
+     "type": "buy"
+    },
+    {
+     "date": "2024-09-30",
+     "fee": 3.9,
+     "id": "o099",
+     "price": 21.465,
+     "qty": 5,
+     "ticker": "INL",
+     "type": "buy"
+    },
+    {
+     "date": "2024-09-30",
+     "fee": 3.9,
+     "id": "o100",
+     "price": 33,
+     "qty": 4,
+     "ticker": "LTC",
+     "type": "buy"
+    },
+    {
+     "date": "2024-09-30",
+     "fee": 1,
+     "id": "o101",
+     "price": 22.7,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2024-11-27",
+     "fee": 10.3,
+     "id": "o102",
+     "price": 30,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2024-12-21",
+     "fee": 10.5,
+     "id": "o103",
+     "price": 47.46,
+     "qty": 5,
+     "ticker": "ACS",
+     "type": "buy"
+    },
+    {
+     "date": "2024-12-27",
+     "fee": 4.9,
+     "id": "o104",
+     "price": 30,
+     "qty": 2,
+     "ticker": "SHELL",
+     "type": "buy"
+    },
+    {
+     "date": "2024-12-27",
+     "fee": 4.9,
+     "id": "o105",
+     "price": 55,
+     "qty": 5,
+     "ticker": "UNA",
+     "type": "buy"
+    },
+    {
+     "date": "2024-12-27",
+     "fee": 3.9,
+     "id": "o106",
+     "price": 30,
+     "qty": 3,
+     "ticker": "KHNZ",
+     "type": "buy"
+    }
+   ]
+  },
+  "orders-2025": {
+   "rows": [
+    {
+     "date": "2025-01-22",
+     "fee": 10.3,
+     "id": "o107",
+     "price": 30,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2025-02-04",
+     "fee": 3.9,
+     "id": "o108",
+     "price": 9.42,
+     "qty": 10,
+     "ticker": "WBA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-02-04",
+     "fee": 1,
+     "id": "o109",
+     "price": 22.32,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2025-02-28",
+     "fee": 10.28,
+     "id": "o110",
+     "price": 27.74,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2025-02-28",
+     "fee": 4.9,
+     "id": "o111",
+     "price": 54.16,
+     "qty": 5,
+     "ticker": "UNA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-24",
+     "fee": 3,
+     "id": "o112",
+     "price": 54.45,
+     "qty": 6,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-24",
+     "fee": 4.9,
+     "id": "o113",
+     "price": 24.17,
+     "qty": 10,
+     "ticker": "PFE",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-25",
+     "fee": 3,
+     "id": "o114",
+     "price": 34.5,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-25",
+     "fee": 4.9,
+     "id": "o115",
+     "price": 40.4,
+     "qty": 5,
+     "ticker": "BAC",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-25",
+     "fee": 1,
+     "id": "o116",
+     "price": 21.5,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-25",
+     "fee": 3.9,
+     "id": "o117",
+     "price": 35.5,
+     "qty": 10,
+     "ticker": "CTP2",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-25",
+     "fee": 3.9,
+     "id": "o118",
+     "price": 25,
+     "qty": 5,
+     "ticker": "SOBA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-03-27",
+     "fee": 10,
+     "id": "o119",
+     "price": 17.62,
+     "qty": 10,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2025-04-24",
+     "fee": 10.3,
+     "id": "o120",
+     "price": 15.33,
+     "qty": 10,
+     "ticker": "IBE",
+     "type": "buy"
+    },
+    {
+     "date": "2025-04-26",
+     "fee": 1,
+     "id": "o121",
+     "price": 20.3,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2025-04-26",
+     "fee": 4.9,
+     "id": "o122",
+     "price": 55,
+     "qty": 5,
+     "ticker": "UNA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-05-05",
+     "fee": 3,
+     "id": "o123",
+     "price": 31.5,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2025-05-05",
+     "fee": 3.9,
+     "id": "o124",
+     "price": 18,
+     "qty": 5,
+     "ticker": "INL",
+     "type": "buy"
+    },
+    {
+     "date": "2025-05-05",
+     "fee": 3.9,
+     "id": "o125",
+     "price": 25.215,
+     "qty": 5,
+     "ticker": "GUI",
+     "type": "buy"
+    },
+    {
+     "date": "2025-05-17",
+     "fee": 10.3,
+     "id": "o126",
+     "price": 13.445,
+     "qty": 10,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2025-06-12",
+     "fee": 10.36,
+     "id": "o127",
+     "price": 17.86,
+     "qty": 10,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2025-06-27",
+     "fee": 3,
+     "id": "o128",
+     "price": 30,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2025-06-27",
+     "fee": 3.9,
+     "id": "o129",
+     "price": 29.75,
+     "qty": 5,
+     "ticker": "LTC",
+     "type": "buy"
+    },
+    {
+     "date": "2025-07-01",
+     "fee": 43.56,
+     "id": "o130",
+     "note": "Custodia De Valores",
+     "price": 0,
+     "qty": 0,
+     "ticker": "",
+     "type": "fee"
+    },
+    {
+     "date": "2025-07-14",
+     "fee": 10.3,
+     "id": "o131",
+     "price": 27.91,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2025-08-01",
+     "fee": 3,
+     "id": "o132",
+     "price": 30.66,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2025-08-08",
+     "fee": 10.6,
+     "id": "o133",
+     "price": 61.3,
+     "qty": 5,
+     "ticker": "ACS",
+     "type": "buy"
+    },
+    {
+     "date": "2025-09-01",
+     "fee": 1,
+     "id": "o134",
+     "price": 20.875,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2025-09-01",
+     "fee": 4.9,
+     "id": "o135",
+     "price": 31.565,
+     "qty": 5,
+     "ticker": "SHELL",
+     "type": "buy"
+    },
+    {
+     "date": "2025-09-04",
+     "fee": 4.9,
+     "id": "o136",
+     "price": 37.68,
+     "qty": 5,
+     "ticker": "BAC",
+     "type": "buy"
+    },
+    {
+     "date": "2025-09-24",
+     "fee": 10.3,
+     "id": "o137",
+     "price": 15.64,
+     "qty": 10,
+     "ticker": "IBE",
+     "type": "buy"
+    },
+    {
+     "date": "2025-10-01",
+     "fee": 4.9,
+     "id": "o138",
+     "price": 21.9,
+     "qty": 5,
+     "ticker": "PFE",
+     "type": "buy"
+    },
+    {
+     "date": "2025-10-02",
+     "fee": 3,
+     "id": "o139",
+     "price": 31.47,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2025-10-20",
+     "fee": 10.3,
+     "id": "o140",
+     "price": 13.875,
+     "qty": 10,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2025-10-29",
+     "fee": 3,
+     "id": "o141",
+     "price": 57.07,
+     "qty": 2,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-10-29",
+     "fee": 3.9,
+     "id": "o142",
+     "price": 24.705,
+     "qty": 5,
+     "ticker": "CTP2",
+     "type": "buy"
+    },
+    {
+     "date": "2025-11-16",
+     "fee": 10.3,
+     "id": "o143",
+     "price": 15.08,
+     "qty": 10,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2025-12-06",
+     "fee": 3.9,
+     "id": "o144",
+     "price": 21.7,
+     "qty": 5,
+     "ticker": "SOBA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-12-06",
+     "fee": 3,
+     "id": "o145",
+     "price": 57.48,
+     "qty": 3,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2025-12-21",
+     "fee": 10.3,
+     "id": "o146",
+     "price": 29.66,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    }
+   ]
+  },
+  "orders-2026": {
+   "rows": [
+    {
+     "date": "2026-01-02",
+     "fee": 43.56,
+     "id": "o147",
+     "note": "Custodia De Valores",
+     "price": 0,
+     "qty": 0,
+     "ticker": "",
+     "type": "fee"
+    },
+    {
+     "date": "2026-01-10",
+     "fee": 3,
+     "id": "o148",
+     "price": 21.07,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2026-01-10",
+     "fee": 3.9,
+     "id": "o149",
+     "price": 19,
+     "qty": 5,
+     "ticker": "GUI",
+     "type": "buy"
+    },
+    {
+     "date": "2026-01-24",
+     "fee": 10.3,
+     "id": "o150",
+     "price": 25.9,
+     "qty": 5,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2026-02-12",
+     "fee": 3.9,
+     "id": "o151",
+     "price": 20.61,
+     "qty": 5,
+     "ticker": "KHNZ",
+     "type": "buy"
+    },
+    {
+     "date": "2026-02-22",
+     "fee": 10.3,
+     "id": "o152",
+     "price": 33.54,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "date": "2026-03-18",
+     "fee": 3.9,
+     "id": "o153",
+     "price": 23.59,
+     "qty": 5,
+     "ticker": "PFE",
+     "type": "buy"
+    },
+    {
+     "date": "2026-03-18",
+     "fee": 3,
+     "id": "o154",
+     "price": 80.765,
+     "qty": 5,
+     "ticker": "IWRD",
+     "type": "buy"
+    },
+    {
+     "date": "2026-03-18",
+     "fee": 3,
+     "id": "o155",
+     "price": 59.18,
+     "qty": 5,
+     "ticker": "EXSA",
+     "type": "buy"
+    },
+    {
+     "date": "2026-03-18",
+     "fee": 3.9,
+     "id": "o156",
+     "price": 33.64,
+     "qty": 5,
+     "ticker": "LTC",
+     "type": "buy"
+    },
+    {
+     "date": "2026-04-01",
+     "fee": 10.3,
+     "id": "o157",
+     "price": 34.9,
+     "qty": 5,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2026-04-01",
+     "fee": 11,
+     "id": "o158",
+     "price": 112.35,
+     "qty": 5,
+     "ticker": "ACS",
+     "type": "buy"
+    },
+    {
+     "date": "2026-05-04",
+     "fee": 4.9,
+     "id": "o159",
+     "price": 38.475,
+     "qty": 5,
+     "ticker": "SHELL",
+     "type": "buy"
+    },
+    {
+     "date": "2026-05-16",
+     "fee": 10.3,
+     "id": "o160",
+     "price": 16.59,
+     "qty": 5,
+     "ticker": "ENG",
+     "type": "buy"
+    },
+    {
+     "date": "2026-06-03",
+     "fee": 4.9,
+     "id": "o161",
+     "price": 47.985,
+     "qty": 3,
+     "ticker": "UNA",
+     "type": "buy"
+    },
+    {
+     "date": "2026-06-13",
+     "fee": 10.3,
+     "id": "o162",
+     "price": 15.11,
+     "qty": 10,
+     "ticker": "RED",
+     "type": "buy"
+    },
+    {
+     "date": "2026-07-01",
+     "fee": 43.56,
+     "id": "o163",
+     "note": "Custodia De Valores",
+     "price": 0,
+     "qty": 0,
+     "ticker": "",
+     "type": "fee"
+    },
+    {
+     "date": "2026-07-04",
+     "fee": 10.3,
+     "id": "o164",
+     "price": 21.76,
+     "qty": 9,
+     "ticker": "IBE",
+     "type": "buy"
+    },
+    {
+     "date": "2026-07-13",
+     "fee": 3,
+     "id": "o165",
+     "price": 34.18,
+     "qty": 5,
+     "ticker": "HDLV",
+     "type": "buy"
+    },
+    {
+     "date": "2026-08-04",
+     "fee": 3.9,
+     "id": "o166",
+     "price": 19.205,
+     "qty": 5,
+     "ticker": "GUI",
+     "type": "buy"
+    },
+    {
+     "date": "2026-09-02",
+     "fee": 10.3,
+     "id": "o167",
+     "price": 30.4,
+     "qty": 5,
+     "ticker": "ENO",
+     "type": "buy"
+    },
+    {
+     "date": "2026-09-02",
+     "fee": 3,
+     "id": "o168",
+     "price": 21.825,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "date": "2026-09-28",
+     "fee": 3.9,
+     "id": "o169",
+     "price": 21.935,
+     "qty": 5,
+     "ticker": "SOBA",
+     "type": "buy"
+    },
+    {
+     "date": "2026-10-01",
+     "fee": 3.9,
+     "id": "o170",
+     "price": 19.228,
+     "qty": 5,
+     "ticker": "CTP2",
+     "type": "buy"
+    }
+   ]
+  },
+  "plans": {
+   "plans": {
+    "BBVAFS": {
+     "contributed": null,
+     "kind": "Fondo de inversión",
+     "manager": "BBVA",
+     "name": "BBVA Futuro Sostenible ISR",
+     "nav": 973.8,
+     "navDate": "2026-11-09",
+     "navSrc": "hoja Inversiones",
+     "order": 3,
+     "units": 8
+    },
+    "CABKPP": {
+     "contributed": null,
+     "kind": "Plan de pensiones",
+     "manager": "CaixaBank",
+     "name": "CaixaBank Tendencias RV",
+     "nav": 38,
+     "navDate": "2026-11-12",
+     "navSrc": "manual",
+     "order": 1,
+     "units": 607.4
+    },
+    "SANPPE": {
+     "contributed": null,
+     "kind": "Plan de empleo",
+     "manager": "Santander",
+     "name": "Santander PPE",
+     "nav": 120,
+     "navDate": "2026-11-09",
+     "navSrc": "hoja Inversiones",
+     "order": 2,
+     "units": 77
+    }
+   },
+   "snapshots": [
+    {
+     "BBVAFS": 1500,
+     "CABKPP": 15650,
+     "SANPPE": 925,
+     "bolsa": 1000,
+     "date": "2022-09",
+     "label": "sep 22"
+    },
+    {
+     "BBVAFS": 2700,
+     "CABKPP": 14500,
+     "SANPPE": 1450,
+     "bolsa": 2000,
+     "date": "2023-01",
+     "label": "ene 23"
+    },
+    {
+     "BBVAFS": 3585,
+     "CABKPP": 15950,
+     "SANPPE": 2140,
+     "bolsa": 6150,
+     "date": "2023-09",
+     "label": "sep 23"
+    },
+    {
+     "BBVAFS": 4195,
+     "CABKPP": 16000,
+     "SANPPE": 2640,
+     "bolsa": 8130,
+     "date": "2024-01",
+     "label": "ene 24"
+    },
+    {
+     "BBVAFS": 5315,
+     "CABKPP": 18150,
+     "SANPPE": 3985,
+     "bolsa": 11385,
+     "date": "2024-09",
+     "label": "sep 24"
+    },
+    {
+     "BBVAFS": 5500,
+     "CABKPP": 19125,
+     "SANPPE": 4610,
+     "bolsa": 12575,
+     "date": "2025-01",
+     "label": "ene 25"
+    },
+    {
+     "BBVAFS": 6400,
+     "CABKPP": 19050,
+     "SANPPE": 5900,
+     "bolsa": 17915,
+     "date": "2025-09",
+     "label": "sep 25"
+    },
+    {
+     "BBVAFS": 6900,
+     "CABKPP": 20150,
+     "SANPPE": 7385,
+     "bolsa": 20430,
+     "date": "2026-01",
+     "label": "ene 26"
+    },
+    {
+     "BBVAFS": 7825,
+     "CABKPP": 23250,
+     "SANPPE": 9045,
+     "bolsa": 27475,
+     "date": "2026-09",
+     "label": "sep 26"
+    },
+    {
+     "BBVAFS": 7790,
+     "CABKPP": 23081,
+     "SANPPE": 9240,
+     "bolsa": 24919,
+     "date": "2026-11",
+     "label": "nov 26"
+    }
+   ]
+  }
+ },
+ "format": "PortfolioAAF",
+ "savedAt": "2026-11-16T19:47:56.464772+00:00",
+ "version": 1
+}
