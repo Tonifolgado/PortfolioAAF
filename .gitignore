@@ -1,5 +1,7 @@
 # Copias de seguridad y datos personales: nunca al repositorio
 PortfolioAAF_copia_*.json
+PortfolioAAF_backup_*.json
+Backups/
 *copia*.json
 copias/
 datos/
