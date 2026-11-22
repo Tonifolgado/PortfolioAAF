@@ -49,3 +49,11 @@ Decisiones del usuario: mantener el repositorio público con los datos dentro; s
 ### Revisión
 
 - Para mantenerlas iguales en el futuro, el cambio se hace en el panel y la app se regenera con el mismo proceso, en lugar de editar las dos a mano.
+
+## Iteración 4 · cambios del panel del 22/11/2026
+
+- [x] Formulario de órdenes: ticker y nombre siempre visibles; al escribir uno se rellena el otro si el activo ya existe (sin distinguir mayúsculas ni tildes), con sugerencias de nombres.
+- [x] El formulario se vacía al guardar (se conservan fecha y tipo); los datos de un activo nuevo se toman al pulsar el botón.
+- [x] `renderAll` dibuja cada sección por separado (si una falla, las demás se actualizan) y la tabla de órdenes con los totales por bróker se redibuja al guardar.
+- [x] `data/portfolio.json`: añadidos los registros hechos en el panel después de la última sincronización (3 órdenes de 2026 y 1 dividendo), sin tocar el resto.
+- [x] Pruebas con serve.py sobre una copia: nombre «enagás» → ENG, ticker «ibe» → Iberdrola, alta de orden guardada en el archivo, formulario vacío y totales por bróker actualizados, sin errores.

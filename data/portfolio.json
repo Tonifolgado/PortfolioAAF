@@ -1488,6 +1488,12 @@
      "date": "2026-10-15",
      "id": "umwdtjr36tisx",
      "ticker": "LTC"
+    },
+    {
+     "amount": 11.02,
+     "date": "2026-11-15",
+     "id": "umwruvzjojkhg",
+     "ticker": "BAC"
     }
    ]
   },
@@ -3536,6 +3542,36 @@
      "qty": 5,
      "ticker": "CTP2",
      "type": "buy"
+    },
+    {
+     "broker": "Ocean",
+     "date": "2026-10-10",
+     "fee": 10.35,
+     "id": "umws5kv2f8n6t",
+     "price": 35.36,
+     "qty": 5,
+     "ticker": "LOG",
+     "type": "buy"
+    },
+    {
+     "broker": "Degiro",
+     "date": "2026-11-03",
+     "fee": 3,
+     "id": "umws5muipbyux",
+     "price": 22.135,
+     "qty": 5,
+     "ticker": "IWDP",
+     "type": "buy"
+    },
+    {
+     "broker": "Ocean",
+     "date": "2026-11-22",
+     "fee": 10.3,
+     "id": "umws5yxlorgsv",
+     "price": 17.67,
+     "qty": 5,
+     "ticker": "ENG",
+     "type": "buy"
     }
    ]
   },
@@ -3794,6 +3830,6 @@
   }
  },
  "format": "PortfolioAAF",
- "savedAt": "2026-11-22T13:10:50.467049+00:00",
+ "savedAt": "2026-11-22T19:07:02.620140+00:00",
  "version": 1
 }
