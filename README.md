@@ -8,13 +8,17 @@ Los datos se guardan en el archivo **`data/portfolio.json`** de este repositorio
 
 ## Qué hace
 
-- **Resumen**: patrimonio total, invertido en bolsa, planes y fondos, plusvalía, dividendos y comisiones. Gráficos de aportación anual, dividendos acumulados, evolución de bolsa frente a planes y peso de cada posición.
-- **Posiciones**: agrupadas en ETF, acciones y planes/fondos (plegables), con coste medio, precio de referencia editable, plusvalía, dividendos y peso.
-- **Compras y ventas**: alta de compras, ventas y gastos (custodia, comisiones), con filtros por año y activo y totales.
-- **Dividendos**: tabla por meses editable como una hoja de cálculo y lista de cobros con fecha, ticker e importe corregibles.
-- **Análisis**: indicadores calculados con tus datos (fricción por comisiones, coste por bróker) y, si lo incluyes en tu copia, un análisis escrito.
-- **Simulador de aportación**: frecuencia óptima de compra según la aportación mensual y la comisión por orden, con proyección a largo plazo.
-- **Exportar a Excel**: posiciones, órdenes y dividendos en .xlsx con la estructura de las hojas *Ordenes* y *Dividendo* del Excel original. Cada archivo explica cómo pegarlo.
+- **Cabecera**: patrimonio total (inversiones, planes y fondos + cuentas corrientes), total de inversiones, planes y fondos, y recuadros de bolsa, planes y fondos y cuentas corrientes.
+- **Resumen**: plusvalía, dividendos y comisiones; gráficos de importe y distribución por tipo de activo, aportación anual, dividendos acumulados, evolución de bolsa frente a planes y peso de cada posición.
+- **Patrimonio**: saldos por mes y año de cuentas corrientes, planes de pensiones e inversiones (tablas editables y plegables), tabla de total, distribución del mes elegido y evolución.
+- **Posiciones**: agrupadas en ETF, acciones y planes/fondos (plegables), con bróker editable, coste medio, precio de referencia, plusvalía, dividendos y peso; paneles de importe y número de acciones por tipo y por bróker; posiciones cerradas.
+- **Compras y ventas**: alta de compras, ventas y gastos con bróker; tabla agrupada por años plegables, con filtros por año, activo y bróker, y totales por bróker.
+- **Dividendos**: tabla por meses editable y lista de cobros enlazadas (lo que se añade en una aparece en la otra).
+- **Análisis**: indicadores calculados con tus datos (fricción por comisiones, coste por bróker) y el análisis escrito guardado en los datos.
+- **Simulador de aportación**: frecuencia óptima de compra según la aportación mensual y la comisión por orden.
+- **Exportar a Excel**: posiciones, órdenes y dividendos en .xlsx con la estructura de las hojas *Ordenes* y *Dividendo* del Excel original.
+
+La app es la misma que el «Panel de Inversión» publicado en claude.ai, generada a partir de él: cambia solo dónde se guardan los datos.
 
 ## Cómo usarla
 

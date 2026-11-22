@@ -38,3 +38,14 @@ Decisiones del usuario: mantener el repositorio público con los datos dentro; s
 
 - Riesgo aceptado por el usuario: los datos financieros quedan públicos en GitHub mientras el repositorio sea público.
 - Si dos pestañas editan a la vez, gana el último guardado (se sincronizan entre sí por el almacenamiento del navegador).
+
+## Iteración 3 · sincronizar con el Panel de Inversión de claude.ai (22/11/2026)
+
+- [x] Regenerar la app a partir de la versión publicada del panel (incluidos los cambios hechos desde otra sesión: columna, filtro y totales por bróker en Compras y ventas).
+- [x] Quitar lo que solo existe en claude.ai (conector de archivos local, backup en carpeta, exportación al repositorio, enlace al índice) y cualquier dato personal del código (rutas del Mac, nombres de planes, análisis escrito).
+- [x] Pasar a `data/portfolio.json` los datos actuales del panel: brókers reasignados, bróker de órdenes y gastos, tabla de patrimonio sin la categoría de fondos.
+- [x] Pruebas con serve.py y un remoto git de prueba: cifras de cabecera (94.681 €), las siete pestañas sin errores, alta de orden guardada en el archivo, «Subir a GitHub» con commit, sin desbordamiento a 390 px.
+
+### Revisión
+
+- Para mantenerlas iguales en el futuro, el cambio se hace en el panel y la app se regenera con el mismo proceso, en lugar de editar las dos a mano.

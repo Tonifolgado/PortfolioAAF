@@ -1,4 +1,4 @@
-/* PortfolioAAF · lógica del panel: cálculos, tablas, gráficos, formularios y exportación a Excel. */
+/* PortfolioAAF · lógica del panel: cálculos, tablas, gráficos, formularios, patrimonio y exportación a Excel. */
 (() => {
 const $ = s => document.querySelector(s);
 const eur = (v, d = 0) => (v ?? 0).toLocaleString('de-DE', {minimumFractionDigits: d, maximumFractionDigits: d}) + ' €';
@@ -12,7 +12,7 @@ try{JSON.parse(localStorage.getItem('collapsed')||'[]').forEach(g=>S.collapsed.a
 const charts = {};
 if(window.Chart){Chart.defaults.font.family='"IBM Plex Sans", "Segoe UI", system-ui, sans-serif';}
 
-function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,Math.max(3200,msg.length*70))}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,3200)}
 function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
 
@@ -22,7 +22,17 @@ function orders(){return Object.entries(S.docs).filter(([k])=>k.startsWith('orde
 function divs(){return Object.entries(S.docs).filter(([k])=>k.startsWith('divs-')).flatMap(([k,d])=>(d.rows||[]).map(r=>({...r,_doc:k}))).sort((a,b)=>a.date<b.date?-1:1)}
 function plansDoc(){return S.docs.plans||{plans:{},snapshots:[]}}
 function plans(){return Object.entries(plansDoc().plans||{}).map(([id,p])=>{const value=(+p.units||0)*(+p.nav||0), c=p.contributed==null||p.contributed===''?null:+p.contributed;return {id,...p,value,contributed:c,pl:c!=null?value-c:null}}).sort((a,b)=>(a.order||9)-(b.order||9))}
-function info(t){const c=meta().catalog[t]||{};return {name:c.name||t,kind:c.kind||'Acción',sector:c.sector||'',region:c.region||'',broker:c.broker||''}}
+const BROKERS=['Degiro','Ocean','Cxbank','Santander','BBVA'];
+function normBroker(b){if(!b)return '';const s=String(b).toLowerCase().replace(/[^a-z]/g,'');
+  if(s.startsWith('degiro'))return 'Degiro';if(s.startsWith('ocean'))return 'Ocean';if(s.startsWith('caixa')||s.startsWith('cxbank')||s==='cx')return 'Cxbank';
+  if(s.startsWith('santander'))return 'Santander';if(s.startsWith('bbva'))return 'BBVA';return String(b)}
+// Bróker efectivo de una orden: el suyo propio o, si no lo tiene, el asignado al valor.
+function orderBroker(o){return normBroker(o.broker)||(o.ticker?info(o.ticker).broker:'')||''}
+function divBroker(d){return normBroker(d.broker)||info(d.ticker).broker||''}
+function brokerOrder(list){const k=b=>{const i=BROKERS.indexOf(b);return i<0?(b?50:99):i};return [...list].sort((a,b)=>k(a)-k(b)||a.localeCompare(b,'es'))}
+function brkSel(kind,id,cur){const opts=BROKERS.includes(cur)||!cur?BROKERS:[cur,...BROKERS];
+  return `<select class="brk" data-k="${kind}" data-id="${esc(id)}" id="brk-${kind}-${esc(id)}" aria-label="Bróker de ${esc(id)}" ${S.canWrite?'':'disabled'}>${cur?'':'<option value="">—</option>'}${opts.map(b=>`<option${b===cur?' selected':''}>${esc(b)}</option>`).join('')}</select>`}
+function info(t){const c=meta().catalog[t]||{};return {name:c.name||t,kind:c.kind||'Acción',sector:c.sector||'',region:c.region||'',broker:normBroker(c.broker)}}
 
 function positions(){
   const P={};
@@ -61,11 +71,14 @@ function renderKpis(){
   const fees=orders().reduce((s,o)=>s+(+o.fee||0),0);
   const gross=orders().filter(o=>o.type==='buy').reduce((s,o)=>s+o.qty*o.price,0);
   const PL=plans(), pv=PL.reduce((s,p)=>s+p.value,0);
+  const CC=patLatest('cc'), cc=CC?.v||0, invT=pv+val;
   const big=[
     ['Total invertido en bolsa',eur(cost),`${P.length} posiciones · valor de referencia ${eur(val)}`],
     ['Total planes y fondos',eur(pv),`${PL.length} productos · valor actual`],
+    ['Total cuentas corrientes',CC?eur(cc):'—',CC?`saldo de ${patLabel(CC.k)} · pestaña Patrimonio`:'registra el saldo en la pestaña Patrimonio'],
   ];
-  $('#patri').innerHTML=`<span class="lbl">Patrimonio total</span><span class="v">${eur(pv+val)}</span><span class="s">bolsa ${eur(val)} (valor ref.) + planes y fondos ${eur(pv)}</span>`;
+  $('#patri').innerHTML=`<div class="pt-main"><span class="lbl">Patrimonio total</span><span class="v">${eur(invT+cc)}</span><span class="s">inversiones, planes y fondos + cuentas corrientes${CC?` (${patLabel(CC.k)})`:''}</span></div>
+    <div class="pt-side"><span class="lbl">Total inversiones, planes y fondos</span><span class="v2">${eur(invT)}</span><span class="s">bolsa ${eur(val)} (valor ref.) + planes y fondos ${eur(pv)}</span></div>`;
   const k=[
     ['Bolsa: valor ref.',eur(val),'precios de la pestaña Posiciones'],
     ['Plusvalía latente',`<span class="${val-cost>=0?'pos':'neg'}">${eur(val-cost)}</span>`,cost?pct(val/cost-1):''],
@@ -85,7 +98,35 @@ function baseOpts(extra={}){
     scales:{x:{ticks:{color:fg},grid:{display:false}},y:{ticks:{color:fg,callback:v=>v.toLocaleString('de-DE')},grid:{color:grid}}}},extra);
 }
 function draw(id,cfg){charts[id]?.destroy();if(!window.Chart)return;charts[id]=new Chart($('#'+id),cfg)}
+
+/* Etiquetas sobre las barras y porcentajes dentro de las porciones. */
+const valueLabels={id:'valueLabels',afterDatasetsDraw(chart,_,o){if(!o||!o.mode)return;const {ctx}=chart;const ds=chart.data.datasets[0];const meta=chart.getDatasetMeta(0);const total=ds.data.reduce((a,b)=>a+b,0);
+  ctx.save();ctx.font=`600 ${o.size||13}px "IBM Plex Sans", system-ui, sans-serif`;ctx.textAlign='center';
+  meta.data.forEach((el,i)=>{const v=ds.data[i];if(!v)return;
+    if(o.mode==='bar'){ctx.fillStyle=o.color;ctx.textBaseline='bottom';ctx.fillText(eur(v),el.x,el.y-6)}
+    else{const share=v/total;if(share<0.03)return;const pos=el.tooltipPosition();ctx.fillStyle=o.colors?.[i]||o.color;ctx.textBaseline='middle';if(o.withValue){ctx.fillText(num(share*100,1)+' %',pos.x,pos.y-9);ctx.font=`500 ${(o.size||13)-1}px "IBM Plex Sans", system-ui, sans-serif`;ctx.fillText(eur(v,2),pos.x,pos.y+9);ctx.font=`600 ${o.size||13}px "IBM Plex Sans", system-ui, sans-serif`}else ctx.fillText(num(share*100,1)+' %',pos.x,pos.y)}});
+  ctx.restore()}};
+function typeTotals(){
+  const T={ACC:0,ETF:0,PP:0,FON:0};
+  for(const p of positions().filter(p=>p.qty>0)){const k=info(p.ticker).kind;T[k==='ETF'?'ETF':/fondo/i.test(k)?'FON':'ACC']+=p.value}
+  for(const p of plans())T[/fondo/i.test(p.kind||'')?'FON':'PP']+=p.value;
+  return T;
+}
+function renderTypeCharts(){
+  const T=typeTotals(),keys=['ACC','ETF','PP','FON'],full={ACC:'Acciones',ETF:'ETF',PP:'Planes de pensiones',FON:'Fondos de inversión'};
+  const cols=['--c5','--c1','--c4','--c3'].map(tok),data=keys.map(k=>Math.round(T[k]));const tot=data.reduce((a,b)=>a+b,0);
+  draw('chType',{type:'bar',data:{labels:keys,datasets:[{label:'Importe',data,backgroundColor:cols,borderRadius:4,maxBarThickness:72}]},
+    plugins:[valueLabels],options:baseOpts({layout:{padding:{top:22}},plugins:{legend:{display:false},valueLabels:{mode:'bar',color:tok('--fg')},
+      tooltip:{callbacks:{title:c=>full[c[0].label],label:c=>`${eur(c.parsed.y)} · ${num(c.parsed.y/(tot||1)*100,1)} %`}}},
+      scales:{x:{ticks:{color:tok('--fg'),font:{weight:'600'}},grid:{display:false}},y:{beginAtZero:true,ticks:{color:tok('--muted'),callback:v=>v.toLocaleString('de-DE')},grid:{color:tok('--line')},title:{display:true,text:'Importe (€)',color:tok('--muted')}}}})});
+  draw('chTypePie',{type:'pie',data:{labels:keys,datasets:[{data,backgroundColor:cols,borderColor:tok('--surface'),borderWidth:2}]},
+    plugins:[valueLabels],options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:8},
+      plugins:{legend:{position:'right',labels:{color:tok('--fg'),boxWidth:12,generateLabels:ch=>keys.map((k,i)=>({text:k===full[k]?k:`${k} · ${full[k]}`,fillStyle:cols[i],strokeStyle:cols[i],fontColor:tok('--fg'),hidden:!ch.getDataVisibility(i),index:i}))}},
+        valueLabels:{mode:'pie',color:tok('--surface')},
+        tooltip:{callbacks:{label:c=>`${full[c.label]}: ${eur(c.parsed)} · ${num(c.parsed/(tot||1)*100,1)} %`}}}}});
+}
 function renderResumen(){
+  renderTypeCharts();
   const Y=yearly();
   draw('chYear',{type:'bar',data:{labels:Y.map(y=>y.year),datasets:[
     {label:'Aportación neta',data:Y.map(y=>Math.round(y.net)),backgroundColor:tok('--c1'),borderRadius:3},
@@ -107,22 +148,38 @@ function renderResumen(){
 }
 
 /* ---------- positions ---------- */
+/* Paneles de totales bajo la tabla: importe y número de acciones por tipo y por bróker. */
+function renderPosTotals(P,PL){
+  const TYPES=['ACC','ETF','PP','FON'], typeOf=p=>{const k=info(p.ticker).kind;return k==='ETF'?'ETF':/fondo/i.test(k)?'FON':'ACC'};
+  const BORDER=['Santander','Cxbank','BBVA','Degiro','Ocean'];
+  const items=[...P.map(p=>({type:typeOf(p),broker:info(p.ticker).broker||'Sin bróker',value:p.value,qty:+p.qty})),
+               ...PL.map(p=>({type:/fondo/i.test(p.kind||'')?'FON':'PP',broker:normBroker(p.broker||p.manager)||'Sin bróker',value:p.value,qty:+p.units||0}))];
+  const sum=(key,f)=>items.reduce((m,i)=>(m[i[key]]=(m[i[key]]||0)+f(i),m),{});
+  const vT=sum('type',i=>i.value),vB=sum('broker',i=>i.value),qT=sum('type',i=>i.qty),qB=sum('broker',i=>i.qty);
+  const brokers=[...BORDER,...Object.keys(vB).filter(b=>!BORDER.includes(b))];
+  const qty=v=>v.toLocaleString('de-DE',{maximumFractionDigits:2});
+  const box=(title,keys,map,fmt)=>`<fieldset class="totbox"><legend>${title}</legend><dl>${keys.map(k=>`<div><dt>${esc(k)}:</dt><dd>${fmt(map[k]||0)}</dd></div>`).join('')}</dl></fieldset>`;
+  const totV=items.reduce((s,i)=>s+i.value,0), totQ=items.reduce((s,i)=>s+i.qty,0);
+  $('#posTotals').innerHTML=!items.length?'':`
+   <section class="totpanel"><h3 class="tothead red">IMPORTE TOTAL: ${eur(totV,2)}</h3><div class="totpair">${box('Totales por Tipo',TYPES,vT,v=>eur(v,2))}${box('Totales por Bróker',brokers,vB,v=>eur(v,2))}</div></section>
+   <section class="totpanel"><h3 class="tothead blue">TOTAL ACCIONES: ${qty(totQ)}</h3><div class="totpair">${box('Acciones por Tipo',TYPES,qT,qty)}${box('Acciones por Bróker',brokers,qB,qty)}</div></section>`;
+}
 function renderPos(){
   const all=positions(), P=all.filter(p=>p.qty>0).sort((a,b)=>b.value-a.value), PL=plans();
   const totV=P.reduce((s,p)=>s+p.value,0)+PL.reduce((s,p)=>s+p.value,0);
   const dis=S.canWrite?'':'disabled';
   const wcell=v=>{const w=totV?v/totV:0;return `<td class="n"><div style="display:flex;gap:6px;align-items:center;justify-content:flex-end">${num(w*100,1)} %<div class="bar" style="width:60px"><i style="width:${Math.min(100,w*100/25*100)}%"></i></div></div></td>`};
   const stockRow=p=>{const i=info(p.ticker), plp=p.cost?p.value/p.cost-1:0;
-    return `<tr><td><span class="tk">${esc(p.ticker)}</span>${meta().catalog?.[p.ticker]?.flag?` <span class="chip flag">${esc(meta().catalog[p.ticker].flag)}</span>`:''}<span class="nm">${esc(i.name)} · ${esc(i.broker)}</span></td>
+    return `<tr><td><span class="tk">${esc(p.ticker)}</span>${meta().catalog?.[p.ticker]?.flag?` <span class="chip flag">${esc(meta().catalog[p.ticker].flag)}</span>`:''}<span class="nm">${esc(i.name)}</span></td><td>${brkSel('t',p.ticker,i.broker)}</td>
     <td class="n">${num(p.qty,0)}</td><td class="n">${num(p.cost/p.qty)}</td><td class="n">${eur(p.cost)}</td>
     <td class="n"><input class="price" type="number" step="any" data-t="${esc(p.ticker)}" id="px-${esc(p.ticker)}" value="${p.ref}" ${dis} aria-label="Precio de referencia ${esc(p.ticker)}"><span class="nm" style="text-align:right">${esc(p.refSrc)} · ${p.refDate.split('-').reverse().join('/')}</span></td>
     <td class="n">${eur(p.value)}</td><td class="n ${plp>=0?'pos':'neg'}">${pct(plp)}</td>
     <td class="n">${eur(p.div,2)}</td><td class="n">${eur(p.div12,2)}<span class="nm">${p.cost?num(p.div12/p.cost*100,1)+' % s/coste':''}</span></td>
     <td class="n">${num(p.fees/(p.cost||1)*100,1)} %</td>${wcell(p.value)}</tr>`};
   const sumS=L=>L.reduce((a,p)=>({c:a.c+p.cost,v:a.v+p.value,d:a.d+p.div,d12:a.d12+p.div12,f:a.f+p.fees}),{c:0,v:0,d:0,d12:0,f:0});
-  const subS=(label,T)=>`<tr class="sub"><td>${label}</td><td></td><td></td><td class="n">${eur(T.c)}</td><td></td><td class="n">${eur(T.v)}</td><td class="n ${T.v>=T.c?'pos':'neg'}">${T.c?pct(T.v/T.c-1):''}</td><td class="n">${eur(T.d,2)}</td><td class="n">${eur(T.d12,2)}</td><td class="n">${num(T.f/(T.c||1)*100,1)} %</td>${wcell(T.v)}</tr>`;
+  const subS=(label,T)=>`<tr class="sub"><td>${label}</td><td></td><td></td><td></td><td class="n">${eur(T.c)}</td><td></td><td class="n">${eur(T.v)}</td><td class="n ${T.v>=T.c?'pos':'neg'}">${T.c?pct(T.v/T.c-1):''}</td><td class="n">${eur(T.d,2)}</td><td class="n">${eur(T.d12,2)}</td><td class="n">${num(T.f/(T.c||1)*100,1)} %</td>${wcell(T.v)}</tr>`;
   const planRow=p=>{const id=esc(p.id);
-    return `<tr><td><span class="tk">${esc(p.name)}</span> <span class="chip">${esc(p.kind)}</span><span class="nm">${esc(p.manager)} · acumulación</span></td>
+    return `<tr><td><span class="tk">${esc(p.name)}</span> <span class="chip">${esc(p.kind)}</span><span class="nm">${esc(p.manager)} · acumulación</span></td><td>${brkSel('p',p.id,normBroker(p.broker||p.manager))}</td>
     <td class="n"><input class="plan" type="number" step="any" data-id="${id}" data-f="units" id="pu-${id}" value="${p.units??''}" ${dis} aria-label="Participaciones ${esc(p.name)}"></td>
     <td class="n">${p.contributed!=null&&p.units?num(p.contributed/p.units):'—'}</td>
     <td class="n"><input class="plan" type="number" step="any" data-id="${id}" data-f="contributed" id="pc-${id}" value="${p.contributed??''}" placeholder="aportado" ${dis} aria-label="Aportado a ${esc(p.name)}"></td>
@@ -132,18 +189,21 @@ function renderPos(){
   const E=P.filter(p=>info(p.ticker).kind==='ETF'), A=P.filter(p=>info(p.ticker).kind!=='ETF');
   const TE=sumS(E), TA=sumS(A), TB=sumS(P);
   const pv=PL.reduce((s,p)=>s+p.value,0), known=PL.filter(p=>p.contributed!=null), pc=known.reduce((s,p)=>s+p.contributed,0), pvk=known.reduce((s,p)=>s+p.value,0);
-  const grp=(g,t,n)=>{const open=!S.collapsed.has(g);return `<tr class="grp"><td colspan="11"><button type="button" class="gtoggle" data-g="${g}" aria-expanded="${open}"><span class="chev" aria-hidden="true">▸</span>${t} <span class="muted" style="font-family:var(--f-body);font-weight:500">· ${n}</span></button></td></tr>`};
+  const grp=(g,t,n)=>{const open=!S.collapsed.has(g);return `<tr class="grp"><td colspan="12"><button type="button" class="gtoggle" data-g="${g}" aria-expanded="${open}"><span class="chev" aria-hidden="true">▸</span>${t} <span class="muted" style="font-family:var(--f-body);font-weight:500">· ${n}</span></button></td></tr>`};
   const inG=(g,html)=>S.collapsed.has(g)?html.replaceAll('<tr>',`<tr data-g="${g}" hidden>`):html.replaceAll('<tr>',`<tr data-g="${g}">`);
-  const head=`<thead><tr><th>Activo</th><th class="n">Acciones / partic.</th><th class="n">Coste medio</th><th class="n">Invertido</th><th class="n">Precio ref. / VL</th><th class="n">Valor</th><th class="n">Plusvalía</th><th class="n">Dividendos</th><th class="n">Div. 12 m</th><th class="n">Comis./coste</th><th class="n">Peso</th></tr></thead>`;
+  const head=`<thead><tr><th>Activo</th><th>Bróker</th><th class="n">Acciones / partic.</th><th class="n">Coste medio</th><th class="n">Invertido</th><th class="n">Precio ref. / VL</th><th class="n">Valor</th><th class="n">Plusvalía</th><th class="n">Dividendos</th><th class="n">Div. 12 m</th><th class="n">Comis./coste</th><th class="n">Peso</th></tr></thead>`;
   let body='';
   if(E.length)body+=grp('etf','ETF',`${E.length} posiciones · ${eur(TE.v)}`)+inG('etf',E.map(stockRow).join(''))+subS('Subtotal ETF',TE);
   if(A.length)body+=grp('acc','Acciones',`${A.length} posiciones · ${eur(TA.v)}`)+inG('acc',A.map(stockRow).join(''))+subS('Subtotal acciones',TA);
-  if(P.length)body+=subS('Total bolsa',TB).replace('class="sub"','class="sub grand"');
+  if(P.length)body+=subS('TOTAL BOLSA',TB).replace('class="sub"','class="sub grand tbolsa"');
   if(PL.length)body+=grp('plan','Planes de pensiones y fondos',`${PL.length} productos · ${eur(pv)}`)+inG('plan',PL.map(planRow).join(''))+
-    `<tr class="sub"><td>Subtotal planes y fondo</td><td></td><td></td><td class="n">${known.length?eur(pc)+(known.length<PL.length?' *':''):'—'}</td><td></td><td class="n">${eur(pv)}</td><td class="n ${pvk>=pc?'pos':'neg'}">${known.length?pct(pvk/pc-1):''}</td><td></td><td></td><td></td>${wcell(pv)}</tr>`;
-  body+=`<tr class="grand"><td>Total patrimonio invertido</td><td></td><td></td><td></td><td></td><td class="n">${eur(totV)}</td><td></td><td class="n">${eur(TB.d,2)}</td><td class="n">${eur(TB.d12,2)}</td><td></td><td class="n">100 %</td></tr>`;
+    `<tr class="sub"><td>Subtotal planes y fondo</td><td></td><td></td><td></td><td class="n">${known.length?eur(pc)+(known.length<PL.length?' *':''):'—'}</td><td></td><td class="n">${eur(pv)}</td><td class="n ${pvk>=pc?'pos':'neg'}">${known.length?pct(pvk/pc-1):''}</td><td></td><td></td><td></td>${wcell(pv)}</tr>`;
+  body+=`<tr class="grand tpatri"><td>TOTAL PATRIMONIO INVERTIDO</td><td></td><td></td><td></td><td></td><td></td><td class="n">${eur(totV)}</td><td></td><td class="n">${eur(TB.d,2)}</td><td class="n">${eur(TB.d12,2)}</td><td></td><td class="n">100 %</td></tr>`;
   $('#tPos').innerHTML=(P.length||PL.length)?head+`<tbody>${body}</tbody>`:`<tbody><tr><td class="empty">Aún no hay posiciones. Registra tu primera compra en «Compras y ventas».</td></tr></tbody>`;
+  renderPosTotals(P,PL);
   const C=all.filter(p=>p.qty===0);
+  const CR=C.reduce((s,p)=>s+p.realized,0);$('#closedCount').textContent=C.length?`· ${C.length} posiciones · resultado ${eur(CR,2)}`:'';
+  const cOpen=!S.collapsed.has('closed');$('#closedToggle').setAttribute('aria-expanded',cOpen);$('#closedBody').hidden=!cOpen;
   $('#tClosed').innerHTML=C.length?`<thead><tr><th>Activo</th><th class="n">Órdenes</th><th class="n">Última</th><th class="n">Resultado realizado</th></tr></thead><tbody>${C.map(p=>`<tr><td><span class="tk">${esc(p.ticker)}</span><span class="nm">${esc(info(p.ticker).name)}</span></td><td class="n">${p.n}</td><td class="n">${p.last.split('-').reverse().join('/')}</td><td class="n ${p.realized>=0?'pos':'neg'}">${eur(p.realized,2)}</td></tr>`).join('')}</tbody>`:`<tbody><tr><td class="empty">Sin posiciones cerradas.</td></tr></tbody>`;
 }
 /* ---------- orders ---------- */
@@ -152,25 +212,57 @@ function renderOrders(){
   const O=orders();
   fillSelect($('#fYear'),[['','Todos los años'],...[...new Set(O.map(o=>o.date.slice(0,4)))].sort().reverse().map(y=>[y,y])]);
   fillSelect($('#fTk'),[['','Todos los activos'],...[...new Set(O.map(o=>o.ticker).filter(Boolean))].sort().map(t=>[t,`${t} · ${info(t).name}`])]);
-  const y=$('#fYear').value,t=$('#fTk').value;
-  const L=O.filter(o=>(!y||o.date.startsWith(y))&&(!t||o.ticker===t)).reverse();
+  const brks=brokerOrder([...new Set(O.map(orderBroker))]);
+  fillSelect($('#fBrk'),[['','Todos los brókers'],...brks.map(b=>[b||'-',b||'Sin bróker'])]);
+  const y=$('#fYear').value,t=$('#fTk').value,fb=$('#fBrk').value,bOk=o=>!fb||(fb==='-'?!orderBroker(o):orderBroker(o)===fb);
+  const L=O.filter(o=>(!y||o.date.startsWith(y))&&(!t||o.ticker===t)&&bOk(o)).reverse();
+  renderBrokerPanel(O.filter(o=>(!y||o.date.startsWith(y))&&(!t||o.ticker===t)),divs().filter(d=>(!y||d.date.startsWith(y))&&(!t||d.ticker===t)),y,t);
   const lab={buy:'Compra',sell:'Venta',fee:'Gasto'};
-  $('#tOrders').innerHTML=`<thead><tr><th>Fecha</th><th>Tipo</th><th>Activo</th><th class="n">Acciones</th><th class="n">Precio</th><th class="n">Importe</th><th class="n">Comisión</th><th class="n">% comisión</th><th></th></tr></thead><tbody>${
-    L.map(o=>{const imp=o.qty*o.price;return `<tr><td class="n" style="text-align:left">${o.date.split('-').reverse().join('/')}</td><td><span class="chip ${o.type}">${lab[o.type]}</span></td>
+  // Totales de un conjunto de órdenes: acciones netas, importe neto, comisiones y % sobre lo comprado.
+  const tot=R=>{const bq=R.filter(o=>o.type==='buy').reduce((s,o)=>s+ +o.qty,0),sq=R.filter(o=>o.type==='sell').reduce((s,o)=>s+ +o.qty,0);
+    const bought=R.filter(o=>o.type==='buy').reduce((s,o)=>s+o.qty*o.price,0);
+    return {n:R.length,bq,sq,net:R.filter(o=>o.type!=='fee').reduce((s,o)=>s+(o.type==='buy'?1:-1)*o.qty*o.price,0),fees:R.reduce((s,o)=>s+(+o.fee||0),0),bought}};
+  const shares=T=>`${num(T.bq-T.sq,0)}<span class="nm" style="text-align:right;font-weight:400">${T.sq?`${num(T.bq,0)} compradas · ${num(T.sq,0)} vendidas`:'compradas'}</span>`;
+  const row=o=>{const imp=o.qty*o.price;return `<td class="n" style="text-align:left">${o.date.split('-').reverse().join('/')}</td><td><span class="chip ${o.type}">${lab[o.type]}</span></td>
     <td>${o.ticker?`<span class="tk">${esc(o.ticker)}</span><span class="nm">${esc(info(o.ticker).name)}</span>`:esc(o.note||'')}</td>
+    <td class="obrk${normBroker(o.broker)?'':' inf'}"${normBroker(o.broker)||!orderBroker(o)?'':' title="Sin bróker propio: se usa el asignado al valor"'}>${brkSel('o',o._doc+'|'+o.id,orderBroker(o))}</td>
     <td class="n">${o.type==='fee'?'':num(o.qty,0)}</td><td class="n">${o.type==='fee'?'':num(o.price,3)}</td><td class="n">${o.type==='fee'?'':eur(imp,2)}</td>
     <td class="n">${eur(+o.fee,2)}</td><td class="n ${imp&&o.fee/imp>0.02?'neg':''}">${imp?num(o.fee/imp*100,1)+' %':''}</td>
-    <td>${S.canWrite?`<button class="btn ghost" data-del="${o._doc}|${o.id}">Borrar</button>`:''}</td></tr>`}).join('')||`<tr><td colspan="9" class="empty">No hay órdenes con este filtro.</td></tr>`}</tbody>
-    <tfoot><tr><td colspan="3">${L.length} movimientos</td><td class="n" title="Acciones compradas menos vendidas">${(()=>{const bq=L.filter(o=>o.type==='buy').reduce((s,o)=>s+ +o.qty,0),sq=L.filter(o=>o.type==='sell').reduce((s,o)=>s+ +o.qty,0);return `${num(bq-sq,0)}<span class="nm" style="text-align:right;font-weight:400">${sq?`${num(bq,0)} compradas · ${num(sq,0)} vendidas`:'compradas'}</span>`})()}</td><td></td><td class="n">${eur(L.filter(o=>o.type!=='fee').reduce((s,o)=>s+(o.type==='buy'?1:-1)*o.qty*o.price,0),2)}</td><td class="n">${eur(L.reduce((s,o)=>s+(+o.fee||0),0),2)}</td><td colspan="2"></td></tr></tfoot>`;
+    <td>${S.canWrite?`<button class="btn ghost" data-del="${o._doc}|${o.id}">Borrar</button>`:''}</td>`};
+  const years=[...new Set(L.map(o=>o.date.slice(0,4)))];
+  const body=years.map(yr=>{const R=L.filter(o=>o.date.startsWith(yr)),T=tot(R),g='y'+yr,open=!S.collapsed.has(g);
+    return `<tr class="grp ygrp"><td colspan="4"><button type="button" class="gtoggle" data-yg="${g}" aria-expanded="${open}"><span class="chev" aria-hidden="true">▸</span>${yr} <span class="muted" style="font-family:var(--f-body);font-weight:500">· ${T.n} movimientos</span></button></td>
+      <td class="n">${shares(T)}</td><td></td><td class="n">${eur(T.net,2)}</td><td class="n">${eur(T.fees,2)}</td><td class="n ${T.bought&&T.fees/T.bought>0.02?'neg':''}">${T.bought?num(T.fees/T.bought*100,1)+' %':''}</td><td></td></tr>`+
+      R.map(o=>`<tr data-yg="${g}"${open?'':' hidden'}>${row(o)}</tr>`).join('')}).join('');
+  const T=tot(L);
+  $('#tOrders').innerHTML=`<thead><tr><th>Fecha</th><th>Tipo</th><th>Activo</th><th>Bróker</th><th class="n">Acciones</th><th class="n">Precio</th><th class="n">Importe</th><th class="n">Comisión</th><th class="n">% comisión</th><th></th></tr></thead><tbody>${
+    body||`<tr><td colspan="10" class="empty">No hay órdenes con este filtro.</td></tr>`}</tbody>
+    <tfoot><tr><td colspan="4">Total · ${T.n} movimientos</td><td class="n" title="Acciones compradas menos vendidas">${shares(T)}</td><td></td><td class="n">${eur(T.net,2)}</td><td class="n">${eur(T.fees,2)}</td><td class="n">${T.bought?num(T.fees/T.bought*100,1)+' %':''}</td><td></td></tr></tfoot>`;
 }
+function renderBrokerPanel(O,D,y,t){
+  const B={},row=b=>B[b]??={n:0,bought:0,fees:0,div:0};
+  for(const o of O){const r=row(orderBroker(o));r.fees+=+o.fee||0;if(o.type!=='fee')r.n++;if(o.type==='buy')r.bought+=o.qty*o.price}
+  for(const d of D)row(divBroker(d)).div+=+d.amount||0;
+  const ks=brokerOrder(Object.keys(B)),T=ks.reduce((a,k)=>(a.n+=B[k].n,a.bought+=B[k].bought,a.fees+=B[k].fees,a.div+=B[k].div,a),{n:0,bought:0,fees:0,div:0});
+  const pct=r=>r.bought?`<span class="${r.fees/r.bought>0.02?'neg':''}">${num(r.fees/r.bought*100,2)} %</span>`:'';
+  const scope=[y?`año ${y}`:'histórico completo',t?`${t}`:''].filter(Boolean).join(' · ');
+  $('#brkPanel').innerHTML=`<header><h3>Totales por bróker</h3><span class="muted" style="font-size:12px">${esc(scope)} · los dividendos se asignan al bróker del valor</span></header>
+   <div class="tbl" style="border:0"><table><thead><tr><th>Bróker</th><th class="n">Órdenes</th><th class="n">Total comprado</th><th class="n">Comisiones</th><th class="n">% s/ comprado</th><th class="n">Dividendos cobrados</th></tr></thead>
+   <tbody>${ks.length?ks.map(k=>{const r=B[k];return `<tr><td>${k?esc(k):'<span class="muted">Sin bróker</span>'}</td><td class="n">${r.n||''}</td><td class="n">${r.bought?eur(r.bought,2):''}</td><td class="n">${eur(r.fees,2)}</td><td class="n">${pct(r)}</td><td class="n">${r.div?eur(r.div,2):''}</td></tr>`}).join(''):'<tr><td colspan="6" class="empty">Sin datos para este filtro.</td></tr>'}</tbody>
+   ${ks.length>1?`<tfoot><tr><td>Total</td><td class="n">${T.n}</td><td class="n">${eur(T.bought,2)}</td><td class="n">${eur(T.fees,2)}</td><td class="n">${pct(T)}</td><td class="n">${eur(T.div,2)}</td></tr></tfoot>`:''}</table></div>`;
+}
+function setYearGroups(groups,open){groups.forEach(g=>open?S.collapsed.delete(g):S.collapsed.add(g));
+  try{localStorage.setItem('collapsed',JSON.stringify([...S.collapsed]))}catch(e){}
+  document.querySelectorAll('#tOrders .gtoggle[data-yg]').forEach(b=>b.setAttribute('aria-expanded',!S.collapsed.has(b.dataset.yg)));
+  document.querySelectorAll('#tOrders tr[data-yg]').forEach(r=>r.hidden=S.collapsed.has(r.dataset.yg))}
 
 /* ---------- dividends ---------- */
 function renderDivs(){
-  const D=divs(), years=[...new Set(D.map(d=>d.date.slice(0,4)))].sort().reverse();
+  const D=divs(), years=[...new Set([...D.map(d=>d.date.slice(0,4)),today.slice(0,4)])].sort().reverse();
   fillSelect($('#dYear'),years.map(y=>[y,`Año ${y}`]),years[0]);
   const y=$('#dYear').value, Dy=D.filter(d=>d.date.startsWith(y));
   const ae=document.activeElement, keep=ae&&ae.id&&(ae.closest('#tDivMatrix')||ae.closest('#tDivs'))?{id:ae.id,v:ae.value}:null;
-  const tks=[...new Set(Dy.map(d=>d.ticker))].sort((a,b)=>a.localeCompare(b,'es',{sensitivity:'base'}));
+  const tks=[...new Set([...Dy.map(d=>d.ticker),...(S.extraTk?.[y]||[])])].sort((a,b)=>a.localeCompare(b,'es',{sensitivity:'base'}));
   const pays=(t,m)=>Dy.filter(d=>d.ticker===t&&+d.date.slice(5,7)===m);
   const cell=(t,m)=>pays(t,m).reduce((s,d)=>s+ +d.amount,0);
   const mt=MONTHS.map((_,i)=>Dy.filter(d=>+d.date.slice(5,7)===i+1).reduce((s,d)=>s+ +d.amount,0));
@@ -180,9 +272,14 @@ function renderDivs(){
     const id=`dm-${t}-${m}`;
     if(P.length>1)return `<td class="n" style="${bg}"><button type="button" class="multi" data-goto="${esc(t)}|${m}" title="${P.length} cobros este mes: edítalos en la lista de abajo">${num(v)}<sup>${P.length}</sup></button></td>`;
     return `<td class="n" style="${bg}"><input class="dcell" id="${esc(id)}" inputmode="decimal" data-t="${esc(t)}" data-m="${m}" value="${v?num(v):''}" ${dis} aria-label="${esc(info(t).name)} ${MONTHS[m-1]} ${y}"></td>`};
-  $('#tDivMatrix').innerHTML=tks.length?`<thead><tr><th>Activo</th>${MONTHS.map(m=>`<th class="n">${m}</th>`).join('')}<th class="n">Total</th></tr></thead><tbody>${tks.map(t=>`<tr><td><span class="tk">${esc(t)}</span><span class="nm">${esc(info(t).name)}</span></td>${MONTHS.map((_,i)=>mcell(t,i+1)).join('')}<td class="n"><b>${num(Dy.filter(d=>d.ticker===t).reduce((s,d)=>s+ +d.amount,0))}</b></td></tr>`).join('')}</tbody>
-    <tfoot><tr><td>Total</td>${mt.map(v=>`<td class="n">${v?num(v):''}</td>`).join('')}<td class="n">${num(mt.reduce((a,b)=>a+b,0))}</td></tr></tfoot>`:`<tbody><tr><td class="empty">No hay dividendos registrados este año.</td></tr></tbody>`;
-  $('#tDivs').innerHTML=`<thead><tr><th>Fecha</th><th>Activo</th><th class="n">Importe (€)</th><th></th></tr></thead><tbody>${[...Dy].reverse().map(d=>{const k=`${d._doc}|${d.id}`;return `<tr data-row="${esc(d.ticker)}|${+d.date.slice(5,7)}">
+  $('#tDivMatrix').innerHTML=`<thead><tr><th>Activo</th>${MONTHS.map(m=>`<th class="n">${m}</th>`).join('')}<th class="n">Total</th></tr></thead><tbody>${tks.map(t=>`<tr><td><span class="tk">${esc(t)}</span><span class="nm">${esc(info(t).name)}</span></td>${MONTHS.map((_,i)=>mcell(t,i+1)).join('')}<td class="n"><b>${num(Dy.filter(d=>d.ticker===t).reduce((s,d)=>s+ +d.amount,0))}</b></td></tr>`).join('')}<tr class="addrow"><td><input id="nmTk" list="tickers" class="nmk" placeholder="+ activo" aria-label="Añadir un activo a la tabla" ${dis}></td><td colspan="13" class="muted" style="font-size:12px">${tks.length?'Añade un activo que aún no tenga cobros este año':'Aún no hay cobros este año: añade un activo y escribe el importe en su mes'}</td></tr></tbody>
+    <tfoot><tr><td>Total</td>${mt.map(v=>`<td class="n">${v?num(v):''}</td>`).join('')}<td class="n">${num(mt.reduce((a,b)=>a+b,0))}</td></tr></tfoot>`;
+  const nd=S.nd||{};const ndDate=nd.date&&nd.date.startsWith(y)?nd.date:(y===today.slice(0,4)?today:`${y}-01-15`);
+  $('#tDivs').innerHTML=`<thead><tr><th>Fecha</th><th>Activo</th><th class="n">Importe (€)</th><th></th></tr></thead><tbody>
+    <tr class="newrow"><td><input class="nd" type="date" id="ndDate" value="${ndDate}" ${dis} aria-label="Fecha del nuevo cobro"></td>
+    <td><input class="nd tkin" id="ndTk" list="tickers" value="${esc(nd.tk||'')}" placeholder="Ticker" ${dis} aria-label="Ticker del nuevo cobro"></td>
+    <td class="n"><input class="nd amt" id="ndAmt" inputmode="decimal" value="${esc(nd.amt||'')}" placeholder="0,00" ${dis} aria-label="Importe del nuevo cobro"></td>
+    <td>${S.canWrite?'<button type="button" class="btn ghost" id="ndAdd">Añadir</button>':''}</td></tr>${[...Dy].reverse().map(d=>{const k=`${d._doc}|${d.id}`;return `<tr data-row="${esc(d.ticker)}|${+d.date.slice(5,7)}">
     <td><input class="dl" type="date" id="dd-${d.id}" data-k="${k}" data-f="date" value="${d.date}" ${dis} aria-label="Fecha"></td>
     <td><input class="dl tkin" id="dt-${d.id}" data-k="${k}" data-f="ticker" list="tickers" value="${esc(d.ticker)}" ${dis} aria-label="Ticker"> <span class="muted">${esc(info(d.ticker).name)}</span></td>
     <td class="n"><input class="dl amt" id="da-${d.id}" data-k="${k}" data-f="amount" inputmode="decimal" value="${num(+d.amount)}" ${dis} aria-label="Importe"></td>
@@ -196,7 +293,7 @@ function renderHealth(){
   const last=O.filter(o=>o.date>cut), buys=last.filter(o=>o.type==='buy');
   const amt=buys.reduce((s,o)=>s+o.qty*o.price,0), fees=last.reduce((s,o)=>s+(+o.fee||0),0);
   const ticket=buys.length?amt/buys.length:0, fr=amt?fees/amt:0;
-  const byB={};for(const o of O){if(o.type==='fee'){(byB['Custodia']??={a:0,f:0,n:0}).f+=+o.fee;continue}const b=info(o.ticker).broker||'Otro';const r=byB[b]??={a:0,f:0,n:0};r.a+=o.qty*o.price;r.f+=+o.fee||0;r.n++}
+  const byB={};for(const o of O){if(o.type==='fee'){(byB['Custodia']??={a:0,f:0,n:0}).f+=+o.fee;continue}const b=normBroker(o.broker)||info(o.ticker).broker||'Otro';const r=byB[b]??={a:0,f:0,n:0};r.a+=o.qty*o.price;r.f+=+o.fee||0;r.n++}
   const cls=v=>v>0.02?'hi':v>0.01?'md':'ok';
   $('#liveHealth').innerHTML=`
    <div class="panel"><header><h3>Tus últimos 12 meses</h3><span class="muted" style="font-size:12px">se recalcula con cada orden</span></header>
@@ -208,7 +305,7 @@ function renderHealth(){
 function renderAnalysis(){
   const A=S.docs.analysis||{};
   $('#anSummaryBox').hidden=!A.summary;$('#anSummary').textContent=A.summary||'';
-  $('#analysis').innerHTML=A.html||'<p class="muted">Aún no hay un análisis guardado. Los indicadores de arriba se calculan solos con tus datos; un análisis escrito puede añadirse dentro de la copia de seguridad (documento «analysis»).</p>';
+  $('#analysis').innerHTML=A.html||'<p class="muted">Aún no hay un análisis escrito. Los indicadores de arriba se calculan solos con tus datos; el texto del análisis se guarda en los datos (documento «analysis»).</p>';
   $('#anNote').textContent=A.note||'No soy asesor financiero ni fiscal: esta información es para que decidas tú.';
 }
 
@@ -236,10 +333,65 @@ function renderAll(){
   const dl=$('#tickers');dl.innerHTML=Object.entries(meta().catalog||{}).map(([t,c])=>`<option value="${esc(t)}">${esc(c.name)}</option>`).join('');
   renderPos();renderPlanForm();renderOrders();renderDivs();renderHealth();
   renderAnalysis();renderSince();renderBackupInfo();
+  renderPatrimonio();
   if(S.view==='resumen')renderResumen();
   if(S.view==='simulador')renderSim();
 }
-function show(v){S.view=v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===v));document.querySelectorAll('section.view').forEach(s=>s.hidden=s.id!=='v-'+v);if(v==='resumen')renderResumen();if(v==='simulador')renderSim();try{localStorage.setItem('tab',v)}catch(e){}}
+/* ---------- patrimonio: saldos por mes de cuentas, planes, fondos e inversiones ---------- */
+const PAT_MONTHS=[['01','Enero'],['03','Marzo'],['05','Mayo'],['07','Julio'],['10','Octubre'],['12','Diciembre']];
+const PAT_CATS=[['cc','Cuentas corrientes','CC','--c3'],['pp','Planes de pensiones','PP','--c4'],['inv','Inversiones','INV','--c1']];
+/* Último saldo registrado de una categoría (p. ej. cuentas corrientes). */
+function patLatest(c){const ks=Object.entries(patDoc().cats?.[c]?.values||{}).filter(([,v])=>v!=null&&v!=='').sort(([a],[b])=>a<b?-1:1);const e=ks.at(-1);return e?{k:e[0],v:+e[1]}:null}
+const patMes=m=>PAT_MONTHS.find(x=>x[0]===m)?.[1]||m;
+function patDoc(){return S.docs.patrimonio||{cats:{}}}
+function patVal(c,k){const v=patDoc().cats?.[c]?.values?.[k];return v==null||v===''?null:+v}
+function patYears(){const ks=PAT_CATS.flatMap(([c])=>Object.keys(patDoc().cats?.[c]?.values||{}));const ys=ks.map(k=>+k.slice(0,4)).filter(Boolean);
+  const cy=+today.slice(0,4),lo=ys.length?Math.min(...ys):cy,hi=Math.max(cy,...ys);return Array.from({length:hi-lo+1},(_,i)=>String(lo+i))}
+function patPeriods(){return patYears().flatMap(y=>PAT_MONTHS.map(([m])=>`${y}-${m}`))}
+const patTotal=k=>{const vs=PAT_CATS.map(([c])=>patVal(c,k)).filter(v=>v!=null);return vs.length?vs.reduce((a,b)=>a+b,0):null};
+const patLabel=k=>`${patMes(k.slice(5))} ${k.slice(0,4)}`;
+function renderPatrimonio(){
+  const Y=patYears(),dis=S.canWrite?'':'disabled';
+  const ae=document.activeElement,keep=ae?.classList?.contains('pcell')?{id:ae.id,v:ae.value}:null;
+  const table=(c,label,desc,col,editable)=>{
+    const val=k=>c==='total'?patTotal(k):patVal(c,k);
+    const yearTot=y=>{const last=[...PAT_MONTHS].reverse().map(([m])=>val(`${y}-${m}`)).find(v=>v!=null);return last};
+    const g='pat-'+c,open=!S.collapsed.has(g),last=[...patPeriods()].reverse().find(k=>val(k)!=null);
+    return `<div class="panel patpanel" style="--k:var(${col})"><header><h3><button type="button" class="gtoggle" data-pg="${g}" aria-expanded="${open}"><span class="chev" aria-hidden="true">▸</span><span class="patkey"></span>${label}${last?` <span class="muted" style="font-family:var(--f-body);font-weight:500">· ${patLabel(last)}: ${eur(val(last))}</span>`:''}</button></h3><span class="muted" style="font-size:12px">${esc(desc)}</span></header>
+    <div class="tbl scrolly pat" data-pg="${g}"${open?'':' hidden'}><table><thead><tr><th>Mes</th>${Y.map(y=>`<th class="n">${y}</th>`).join('')}</tr></thead><tbody>${
+      PAT_MONTHS.map(([m,ml])=>`<tr><td>${ml}</td>${Y.map(y=>{const k=`${y}-${m}`,v=val(k);
+        return editable?`<td class="n"><input class="pcell" id="pc-${c}-${k}" data-c="${c}" data-k="${k}" inputmode="decimal" value="${v==null?'':num(v,0)}" ${dis} aria-label="${label} ${ml} ${y}"></td>`
+          :`<td class="n">${v==null?'':num(v,0)}</td>`}).join('')}</tr>`).join('')}</tbody>
+      <tfoot><tr><td>Último saldo</td>${Y.map(y=>{const v=yearTot(y);return `<td class="n">${v==null?'':num(v,0)}</td>`}).join('')}</tr></tfoot></table></div></div>`};
+  const desc=c=>patDoc().cats?.[c]?.desc||'';
+  $('#patTables').innerHTML=table('total','Total patrimonio','cuentas corrientes + planes de pensiones + inversiones','--bad',false)+PAT_CATS.map(([c,l,,col])=>table(c,l,desc(c),col,true)).join('');
+  if(keep){const el=document.getElementById(keep.id);if(el){el.value=keep.v;el.focus()}}
+  // periodo para la distribución: el último con datos, o el elegido
+  const withData=patPeriods().filter(k=>patTotal(k)!=null);
+  fillSelect($('#patPeriod'),[...withData].reverse().map(k=>[k,patLabel(k)]),withData.at(-1));
+  const k=$('#patPeriod').value;
+  if(!k){$('#patTotal').textContent='';return}
+  const parts=PAT_CATS.map(([c,l,ab,col])=>({c,l,ab,col,v:patVal(c,k)||0})).filter(p=>p.v>0), tot=parts.reduce((s,p)=>s+p.v,0);
+  const missing=PAT_CATS.filter(([c])=>patVal(c,k)==null&&Object.keys(patDoc().cats?.[c]?.values||{}).length).map(([,l])=>l);
+  $('#patTotal').innerHTML=`<span class="lbl">Total ${patLabel(k)}</span><span class="v">${eur(tot,2)}</span>${missing.length?`<span class="s">Sin dato este mes: ${missing.join(', ')}</span>`:''}`;
+  if(S.view!=='patrimonio')return;
+  draw('chPatPie',{type:'pie',data:{labels:parts.map(p=>p.ab),datasets:[{data:parts.map(p=>p.v),backgroundColor:parts.map(p=>tok(p.col)),borderColor:tok('--surface'),borderWidth:2}]},
+    plugins:[valueLabels],options:{responsive:true,maintainAspectRatio:false,animation:false,layout:{padding:8},
+      plugins:{legend:{position:'right',labels:{color:tok('--fg'),boxWidth:12,generateLabels:()=>parts.map(p=>({text:`${p.ab} · ${p.l}`,fillStyle:tok(p.col),strokeStyle:tok(p.col),fontColor:tok('--fg')}))}},
+        valueLabels:{mode:'pie',withValue:true,color:tok('--surface')},tooltip:{callbacks:{label:c=>`${parts[c.dataIndex].l}: ${eur(c.parsed,2)} · ${num(c.parsed/(tot||1)*100,1)} %`}}}}});
+  const P=withData;
+  draw('chPatEvo',{type:'bar',data:{labels:P.map(k=>`${patMes(k.slice(5)).slice(0,3)} ${k.slice(2,4)}`),datasets:PAT_CATS.map(([c,l,ab,col])=>({label:l,data:P.map(k=>patVal(c,k)??0),backgroundColor:tok(col),borderRadius:2}))},
+    options:baseOpts({scales:{x:{stacked:true,ticks:{color:tok('--muted'),maxRotation:60,autoSkip:true},grid:{display:false}},y:{stacked:true,ticks:{color:tok('--muted'),callback:v=>v.toLocaleString('de-DE')},grid:{color:tok('--line')}}},
+      plugins:{legend:{labels:{color:tok('--muted'),boxWidth:12}},tooltip:{mode:'index',callbacks:{label:c=>`${c.dataset.label}: ${eur(c.parsed.y)}`,footer:it=>`Total: ${eur(it.reduce((s,i)=>s+i.parsed.y,0))}`}}}})});
+}
+document.addEventListener('change',e=>{const i=e.target.closest('input.pcell');if(!i)return;
+  const raw=i.value.trim(),v=raw===''?null:parseAmt(raw);
+  if(v!=null&&(isNaN(v)||v<0)){toast('Escribe un importe válido, p. ej. 31.700');return renderPatrimonio()}
+  if(v===patVal(i.dataset.c,i.dataset.k))return;
+  const patch={cats:{[i.dataset.c]:{values:{[i.dataset.k]:v==null?null:Math.round(v*100)/100}}}};
+  enqueue(async()=>{if(S.docs.patrimonio)await S.db.doc('ledger/patrimonio').update(patch);else await S.db.doc('ledger/patrimonio').set(patch);toast(v==null?'Saldo borrado':'Saldo guardado')})});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input.pcell'))e.target.blur()});
+function show(v){S.view=v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===v));document.querySelectorAll('section.view').forEach(s=>s.hidden=s.id!=='v-'+v);if(v==='resumen')renderResumen();if(v==='patrimonio')renderPatrimonio();if(v==='simulador')renderSim();try{localStorage.setItem('tab',v)}catch(e){}}
 $('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)show(b.dataset.v)});
 
 /* ---------- writes ---------- */
@@ -256,31 +408,34 @@ const uid=()=>'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function syncOrderForm(){
   const type=$('#oType').value, t=$('#oTicker').value.trim().toUpperCase(), known=!!meta().catalog?.[t];
   const isFee=type==='fee';
-  ['#lName','#lKind','#lIsin','#lBroker'].forEach(s=>$(s).hidden=isFee||known||!t);
+  ['#lName','#lKind','#lIsin'].forEach(s=>$(s).hidden=isFee||known||!t);
+  // Bróker por defecto: el de la posición, solo al cambiar de ticker (no pisa una elección manual).
+  const key=isFee?'#fee':t;if(key!==S.oTk){S.oTk=key;$('#oBroker').value=known?(info(t).broker||''):isFee?'':$('#oBroker').value}
   $('#lNote').hidden=!isFee;
   $('#oTicker').required=!isFee;$('#oQty').required=!isFee;$('#oPrice').required=!isFee;
   $('#oQty').closest('label').hidden=isFee;$('#oPrice').closest('label').hidden=isFee;$('#oTicker').closest('label').hidden=isFee;
   const p=positions().find(p=>p.ticker===t);
-  $('#oHint').textContent=isFee?'Los gastos cuentan en «Comisiones y custodia».':t&&known?`${info(t).name}: tienes ${num(p?.qty||0,0)} acciones a ${num(p&&p.qty?p.cost/p.qty:0)} € de coste medio.`:t?'Ticker nuevo: indica su nombre para darlo de alta.':'';
+  const sel=$('#oBroker').value, pb=known?info(t).broker:'';
+  $('#oHint').textContent=isFee?'Los gastos cuentan en «Comisiones y custodia». Elige el bróker que los cobra.':t&&known?`${info(t).name}: tienes ${num(p?.qty||0,0)} acciones a ${num(p&&p.qty?p.cost/p.qty:0)} € de coste medio${pb?` en ${pb}`:''}.${sel&&pb&&sel!==pb?` Esta orden quedará registrada en ${sel}.`:''}`:t?'Ticker nuevo: indica su nombre para darlo de alta.':'';
 }
-['#oType','#oTicker'].forEach(s=>$(s).addEventListener('input',syncOrderForm));
+['#oType','#oTicker','#oBroker'].forEach(s=>$(s).addEventListener('input',syncOrderForm));
 $('#oDate').value=today;$('#dDate').value=today;
 
 $('#fOrder').addEventListener('submit',e=>{e.preventDefault();
   const type=$('#oType').value, date=$('#oDate').value, fee=+$('#oFee').value||0;
   let row;
-  if(type==='fee'){if(!fee)return toast('Indica el importe del gasto en «Comisión».');row={id:uid(),date,type,ticker:'',qty:0,price:0,fee,note:$('#oNote').value.trim()||'Gasto'}}
+  if(type==='fee'){if(!fee)return toast('Indica el importe del gasto en «Comisión».');row={id:uid(),date,type,ticker:'',qty:0,price:0,fee,note:$('#oNote').value.trim()||'Gasto',...($('#oBroker').value?{broker:$('#oBroker').value}:{})}}
   else{
     const t=$('#oTicker').value.trim().toUpperCase(), qty=+$('#oQty').value, price=+$('#oPrice').value;
     if(!t||!(qty>0)||!(price>0))return toast('Completa ticker, acciones y precio.');
     if(type==='sell'){const held=positions().find(p=>p.ticker===t)?.qty||0;if(qty>held+1e-9)return toast(`Solo tienes ${num(held,0)} acciones de ${t}.`)}
     const isNew=!meta().catalog?.[t];
     if(isNew&&!$('#oName').value.trim())return toast('Escribe el nombre del activo nuevo.');
-    row={id:uid(),date,type,ticker:t,qty,price,fee};
-    if(isNew)enqueue(()=>S.db.doc('ledger/meta').update({catalog:{[t]:{name:$('#oName').value.trim(),kind:$('#oKind').value,broker:$('#oBroker').value.trim()||'—',isin:$('#oIsin').value.trim().toUpperCase(),sector:'',region:''}}}));
+    row={id:uid(),date,type,ticker:t,qty,price,fee,...($('#oBroker').value?{broker:$('#oBroker').value}:{})};
+    if(isNew)enqueue(()=>S.db.doc('ledger/meta').update({catalog:{[t]:{name:$('#oName').value.trim(),kind:$('#oKind').value,broker:$('#oBroker').value,isin:$('#oIsin').value.trim().toUpperCase(),sector:'',region:''}}}));
   }
   enqueue(async()=>{await writeRows('orders-'+date.slice(0,4),rows=>[...rows,row]);toast(type==='buy'?'Compra guardada':type==='sell'?'Venta guardada':'Gasto guardado');
-    ['#oQty','#oPrice','#oName','#oNote','#oBroker','#oIsin'].forEach(s=>$(s).value='');syncOrderForm()});
+    ['#oQty','#oPrice','#oName','#oNote','#oIsin'].forEach(s=>$(s).value='');syncOrderForm()});
 });
 $('#fDiv').addEventListener('submit',e=>{e.preventDefault();
   const date=$('#dDate').value, t=$('#dTicker').value.trim().toUpperCase(), amount=+$('#dAmt').value;
@@ -299,11 +454,30 @@ document.addEventListener('change',e=>{const q=e.target.closest('input.plan');if
   enqueue(async()=>{await S.db.doc('ledger/plans').update({plans:{[q.dataset.id]:patch}});toast('Plan actualizado')});return}
   const i=e.target.closest('input.price');if(!i)return;const v=+i.value;if(!(v>0))return;
   enqueue(async()=>{await S.db.doc('ledger/meta').update({prices:{[i.dataset.t]:{price:v,date:today,src:'manual'}}});toast(`Precio de ${i.dataset.t} actualizado`)})});
-['#fYear','#fTk'].forEach(s=>$(s).addEventListener('change',renderOrders));
+['#fYear','#fTk','#fBrk'].forEach(s=>$(s).addEventListener('change',renderOrders));
 $('#dYear').addEventListener('change',renderDivs);
+/* Alta directa en las tablas de Dividendos: ambas leen los mismos cobros, así que lo que se añade en una aparece en la otra. */
+document.addEventListener('input',e=>{if(e.target.matches('input.nd')){S.nd={date:$('#ndDate').value,tk:$('#ndTk').value,amt:$('#ndAmt').value}}});
+function addListDividend(){
+  const date=$('#ndDate').value,t=$('#ndTk').value.trim().toUpperCase(),amount=parseAmt($('#ndAmt').value);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return toast('Indica la fecha del cobro.');
+  if(!meta().catalog?.[t])return toast(t?`${t} no está en tu cartera. Regístralo primero con una compra.`:'Indica el ticker del cobro.');
+  if(!(amount>0))return toast('Indica un importe mayor que 0, p. ej. 12,34');
+  S.nd={date,tk:'',amt:''};
+  enqueue(async()=>{await writeRows('divs-'+date.slice(0,4),rows=>[...rows,{id:uid(),date,ticker:t,amount:Math.round(amount*100)/100}]);$('#dYear').value=date.slice(0,4);renderDivs();toast(`Cobro añadido: ${t} ${eur(amount,2)} · ${date.split('-').reverse().join('/')}`)});
+}
+document.addEventListener('click',e=>{if(e.target.id==='ndAdd')addListDividend()});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input.nd')){e.preventDefault();addListDividend()}});
+document.addEventListener('change',e=>{if(e.target.id!=='nmTk')return;const t=e.target.value.trim().toUpperCase();if(!t)return;
+  if(!meta().catalog?.[t]){toast(`${t} no está en tu cartera.`);e.target.value='';return}
+  const y=$('#dYear').value;S.extraTk??={};(S.extraTk[y]??=new Set()).add(t);renderDivs();document.getElementById(`dm-${t}-${new Date().getMonth()+1}`)?.focus()});
+$('#patPeriod').addEventListener('change',renderPatrimonio);
+$('#patTables').addEventListener('click',e=>{const b=e.target.closest('.gtoggle[data-pg]');if(!b)return;const g=b.dataset.pg,open=S.collapsed.has(g);
+  open?S.collapsed.delete(g):S.collapsed.add(g);try{localStorage.setItem('collapsed',JSON.stringify([...S.collapsed]))}catch(e){}
+  b.setAttribute('aria-expanded',open);document.querySelector(`#patTables .tbl[data-pg="${g}"]`).hidden=!open});
 $('#fSim').addEventListener('input',renderSim);
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(S.view==='resumen')renderResumen();if(S.view==='simulador')renderSim()});
-new MutationObserver(()=>{if(S.view==='resumen')renderResumen();if(S.view==='simulador')renderSim()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{if(S.view==='resumen')renderResumen();if(S.view==='patrimonio')renderPatrimonio();if(S.view==='simulador')renderSim()});
+new MutationObserver(()=>{if(S.view==='resumen')renderResumen();if(S.view==='patrimonio')renderPatrimonio();if(S.view==='simulador')renderSim()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
 
 /* ---------- collapsible groups ---------- */
@@ -312,8 +486,10 @@ function setGroups(groups,open){groups.forEach(g=>open?S.collapsed.delete(g):S.c
   document.querySelectorAll('#tPos .gtoggle').forEach(b=>b.setAttribute('aria-expanded',!S.collapsed.has(b.dataset.g)));
   document.querySelectorAll('#tPos tr[data-g]').forEach(r=>r.hidden=S.collapsed.has(r.dataset.g))}
 $('#tPos').addEventListener('click',e=>{const b=e.target.closest('.gtoggle');if(b)setGroups([b.dataset.g],S.collapsed.has(b.dataset.g))});
-$('#gOpen').addEventListener('click',()=>setGroups(['etf','acc','plan'],true));
-$('#gClose').addEventListener('click',()=>setGroups(['etf','acc','plan'],false));
+$('#closedToggle').addEventListener('click',()=>{const open=S.collapsed.has('closed');open?S.collapsed.delete('closed'):S.collapsed.add('closed');try{localStorage.setItem('collapsed',JSON.stringify([...S.collapsed]))}catch(e){}$('#closedToggle').setAttribute('aria-expanded',open);$('#closedBody').hidden=!open});
+const syncClosed=()=>{const open=!S.collapsed.has('closed');$('#closedToggle').setAttribute('aria-expanded',open);$('#closedBody').hidden=!open};
+$('#gOpen').addEventListener('click',()=>{setGroups(['etf','acc','plan','closed'],true);syncClosed()});
+$('#gClose').addEventListener('click',()=>{setGroups(['etf','acc','plan','closed'],false);syncClosed()});
 
 /* ---------- plan update form ---------- */
 const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -409,8 +585,8 @@ async function saveBook(wb,name){
 }
 const prodName=t=>{const c=meta().catalog?.[t]||{};return c.xlName||(c.name||t).toUpperCase()};
 function exportOrders(){
-  const y=$('#fYear').value,t=$('#fTk').value;
-  const L=orders().filter(o=>(!y||o.date.startsWith(y))&&(!t||o.ticker===t)).reverse();
+  const y=$('#fYear').value,t=$('#fTk').value,fb=$('#fBrk').value;
+  const L=orders().filter(o=>(!y||o.date.startsWith(y))&&(!t||o.ticker===t)&&(!fb||(fb==='-'?!orderBroker(o):orderBroker(o)===fb))).reverse();
   const head=['Fecha','Producto','ISIN','Bolsa ','Centro','Número','Precio','Valor local','Costes transac. ','Total'];
   const rows=L.map(o=>{
     if(o.type==='fee')return [cD(o.date),cS((o.note||'Gasto').toUpperCase()),cS('******'),cS('---'),cS('---'),cS('---'),cS('----'),cS('---'),cN(-(+o.fee||0)),cN(-(+o.fee||0))];
@@ -470,7 +646,7 @@ function exportDividends(){
 function exportPositions(){
   const cat=meta().catalog||{}, P=positions().filter(p=>p.qty>0).sort((a,b)=>(cat[a.ticker]?.sumOrder||99)-(cat[b.ticker]?.sumOrder||99)||a.ticker.localeCompare(b.ticker));
   const head=['Symbol','Title','Sector','Broker','Shares','Avg Cost / Share','Total','Precio ref.','Fecha precio','Valor','Plusvalía','Plusvalía %','Coste medio con comisiones','Comisiones','Dividendos cobrados','Dividendos 12 meses','En cartera'];
-  const rows=P.map((p,i)=>{const c=cat[p.ticker]||{},R=i+2,avg0=p.cost0/p.qty;return [cS(p.ticker),cS(c.name||p.ticker),cS(c.xlSector||c.sector||''),cS(c.broker||''),{t:'n',v:p.qty,z:'0'},cN(avg0),cF(`E${R}*F${R}`),cN(p.ref),cD(p.refDate),cF(`E${R}*H${R}`),cF(`J${R}-E${R}*M${R}`),{t:'n',f:`IF(E${R}*M${R}=0,"",J${R}/(E${R}*M${R})-1)`,z:'0.0%'},cN(p.cost/p.qty),cN(p.fees),cN(p.div),cN(p.div12),cS('YES')]});
+  const rows=P.map((p,i)=>{const c=cat[p.ticker]||{},R=i+2,avg0=p.cost0/p.qty;return [cS(p.ticker),cS(c.name||p.ticker),cS(c.xlSector||c.sector||''),cS(normBroker(c.broker)),{t:'n',v:p.qty,z:'0'},cN(avg0),cF(`E${R}*F${R}`),cN(p.ref),cD(p.refDate),cF(`E${R}*H${R}`),cF(`J${R}-E${R}*M${R}`),{t:'n',f:`IF(E${R}*M${R}=0,"",J${R}/(E${R}*M${R})-1)`,z:'0.0%'},cN(p.cost/p.qty),cN(p.fees),cN(p.div),cN(p.div12),cS('YES')]});
   const n=P.length, tot=Array(17).fill(null);tot[1]=cS('TOTAL');['G','J','K','N','O','P'].forEach(col=>{tot[XLSX.utils.decode_col(col)]=cF(`SUM(${col}2:${col}${n+1})`)});
   const PL=plans();
   const ph=['Producto','Tipo','Gestora','Participaciones','Valor liquidativo','Fecha VL','Valor','Aportado','Plusvalía','Plusvalía %'];
@@ -496,23 +672,30 @@ function exportPositions(){
 document.addEventListener('click',e=>{const b=e.target.closest('[data-export]');if(!b)return;({orders:exportOrders,dividends:exportDividends,positions:exportPositions})[b.dataset.export]()});
 
 
-/* ---------- header extras & backups ---------- */
+/* ---------- utilidades ---------- */
+const isObj=v=>v&&typeof v==='object'&&!Array.isArray(v);
+function deepMerge(t,p){const o=isObj(t)?{...t}:{};for(const[k,v]of Object.entries(p))o[k]=isObj(v)?deepMerge(o[k],v):v;return o}
+const sortKeys=v=>Array.isArray(v)?v.map(sortKeys):isObj(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,sortKeys(v[k])])):v;
+const docsEqual=(a,b)=>JSON.stringify(sortKeys(a))===JSON.stringify(sortKeys(b));
+function updateStatus(){const n=orders().length;$('#status').textContent=n?`${n} órdenes · ${divs().length} cobros de dividendo${S.canWrite?'':' · solo lectura'}`:'Sin datos todavía: registra tu primera orden en «Compras y ventas».'}
+
+
+/* ---------- cabecera de la app: copias de seguridad y GitHub ---------- */
 function renderSince(){const O=orders();const f=O[0]?.date;$('#since').textContent=f?`Bolsa, planes y fondos · desde ${MONTHS[+f.slice(5,7)-1].toLowerCase()}. ${f.slice(0,4)}`:'Bolsa, planes y fondos'}
-let BK=null;
-let SYNC=null;
+let BK=null,SYNC=null;
 const hhmm=d=>d?new Date(d).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'';
 function renderBackupInfo(){
-  if(!BK)return;const empty=BK.isEmpty();$('#welcome').hidden=!empty;
+  if(!BK)return;$('#welcome').hidden=!BK.isEmpty();
   if(SYNC?.mode==='archivo'){const st=SYNC.status();$('#ghPush').hidden=false;
     $('#bkInfo').innerHTML=st.state==='saving'?`Guardando en ${esc(st.file)}…`:st.state==='error'?`<b>No se pudo guardar en ${esc(st.file)}: ${esc(st.error)}. ¿Sigue abierto serve.py?</b>`:`Guardado en ${esc(st.file)}${st.savedAt?' · '+hhmm(st.savedAt):''}`;return}
   const last=BK.lastDate();const days=last?Math.floor((Date.now()-new Date(last))/864e5):null;
-  $('#bkInfo').innerHTML=empty?'':!last?'<b>Aún no has guardado ninguna copia de seguridad.</b>':days>30?`<b>Última copia: ${last.split('-').reverse().join('/')} (hace ${days} días).</b>`:`Última copia: ${last.split('-').reverse().join('/')}`;
+  $('#bkInfo').innerHTML=BK.isEmpty()?'':!last?'<b>Aún no has guardado ninguna copia de seguridad.</b>':days>30?`<b>Última copia: ${last.split('-').reverse().join('/')} (hace ${days} días).</b>`:`Última copia: ${last.split('-').reverse().join('/')}`;
 }
 $('#ghPush').addEventListener('click',async()=>{const b=$('#ghPush');b.disabled=true;b.textContent='Subiendo…';
   try{const r=await SYNC.publish();toast(r.message)}catch(e){toast(e?.message||'No se pudo subir a GitHub.');if(e?.detail)console.warn(e.detail)}
   finally{b.disabled=false;b.textContent='Subir a GitHub'}});
 $('#bkExport').addEventListener('click',async()=>{try{await BK.export();toast('Copia de seguridad descargada');renderBackupInfo()}catch(e){toast('No se pudo generar la copia.')}});
-const pickBackup=()=>{if(!BK.isEmpty()&&!confirm('Restaurar una copia sustituye todos los datos de este navegador por los del archivo. ¿Continuar?'))return;$('#bkFile').value='';$('#bkFile').click()};
+const pickBackup=()=>{if(!BK.isEmpty()&&!confirm('Restaurar una copia sustituye todos los datos por los del archivo. ¿Continuar?'))return;$('#bkFile').value='';$('#bkFile').click()};
 $('#bkImport').addEventListener('click',pickBackup);$('#bkImport2').addEventListener('click',pickBackup);
 $('#bkFile').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{const n=await BK.restore(f);toast(`Copia restaurada: ${n} documentos`)}catch(err){toast(err?.message||'No se pudo restaurar la copia.')}});
 
@@ -528,11 +711,9 @@ renderAll();syncOrderForm();
   const cw=user?await user.can('data.write'):null; if(cw===false){S.canWrite=false;document.querySelectorAll('form.entry button').forEach(b=>b.disabled=true)}
   const timer=setTimeout(()=>{if(!S.loaded)$('#status').innerHTML='<b>Los datos tardan en llegar.</b> Comprueba tu conexión.'},10000);
   db.collection('ledger').onSnapshot(snap=>{
-    const docs={};snap.docs.forEach(d=>{if(d.exists)docs[d.id]=d.data()});S.docs=docs;
+    const docs={};snap.docs.forEach(d=>{if(d.exists)docs[d.id]=d.data()});S.dbDocs=docs;
     if(!snap.metadata.fromCache){S.loaded=true;clearTimeout(timer)}
-    const n=orders().length;
-    $('#status').textContent=n?`${n} órdenes · ${divs().length} cobros de dividendo${S.canWrite?'':' · solo lectura'}`:'Sin datos todavía';
-    renderAll();syncOrderForm();
+    S.docs=docs;updateStatus();renderAll();syncOrderForm();
   },err=>{clearTimeout(timer);$('#status').innerHTML='<b>No se pudieron cargar los datos.</b> Recarga la página.'});
 })();
 })();

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Panel de Inversión · PortfolioAAF</title>
-<meta name="description" content="Panel personal de inversión: bolsa, dividendos, planes de pensiones y fondos. Los datos se guardan solo en tu navegador.">
+<meta name="description" content="Panel personal de inversión: bolsa, dividendos, planes de pensiones, fondos y patrimonio.">
 <meta name="theme-color" content="#1d6b57">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d6b57'/%3E%3Cpath d='M7 22l6-7 5 4 7-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +32,8 @@
   </header>
 
   <div class="panel welcome" id="welcome" hidden>
-    <h2>Este navegador aún no tiene datos</h2>
-    <p>Tus datos se guardan solo en el navegador donde usas la app. Si tienes una copia de seguridad (<b>.json</b>), restáurala para empezar. Si no, registra tu primera compra en «Compras y ventas».</p>
+    <h2>Todavía no hay datos</h2>
+    <p>Si tienes una copia de seguridad (<b>.json</b>), restáurala para empezar. Si no, registra tu primera compra en «Compras y ventas».</p>
     <div><button type="button" class="btn" id="bkImport2">Restaurar copia de seguridad</button></div>
   </div>
 
@@ -41,6 +41,7 @@
 
   <nav class="tabs" role="tablist" id="tabs">
     <button role="tab" data-v="resumen" aria-selected="true">Resumen</button>
+    <button role="tab" data-v="patrimonio">Patrimonio</button>
     <button role="tab" data-v="posiciones">Posiciones</button>
     <button role="tab" data-v="movimientos">Compras y ventas</button>
     <button role="tab" data-v="dividendos">Dividendos</button>
@@ -50,11 +51,27 @@
 
   <section class="view" id="v-resumen">
     <div class="grid2">
+      <div class="panel"><header><h3>Importe por Tipo de Activo</h3><span class="muted" style="font-size:12px">valor actual · €</span></header><div class="chart"><canvas id="chType"></canvas></div></div>
+      <div class="panel"><header><h3>Distribución por Tipo de Activo</h3><span class="muted" style="font-size:12px">% del patrimonio</span></header><div class="chart"><canvas id="chTypePie"></canvas></div></div>
+    </div>
+    <p class="muted" style="font-size:12px;margin:-10px 0 0">ACC: acciones · ETF: fondos cotizados · PP: planes de pensiones y de empleo · FON: fondos de inversión</p>
+    <div class="grid2">
       <div class="panel"><header><h3>Aportación neta y dividendos por año</h3><span class="muted" style="font-size:12px">€</span></header><div class="chart"><canvas id="chYear"></canvas></div></div>
       <div class="panel"><header><h3>Dividendos acumulados en el año</h3><span class="muted" style="font-size:12px">€ por mes</span></header><div class="chart"><canvas id="chCum"></canvas></div></div>
     </div>
     <div class="panel"><header><h3>Bolsa frente a planes y fondo</h3><span class="muted" style="font-size:12px">saldos registrados, aportaciones incluidas · €</span></header><div class="chart"><canvas id="chEvo"></canvas></div></div>
     <div class="panel"><header><h3>Peso de cada posición</h3><span class="muted" style="font-size:12px">sobre el valor actual · <span class="key" style="--k:var(--c1)"></span>ETF <span class="key" style="--k:var(--c5)"></span>acciones <span class="key" style="--k:var(--c4)"></span>planes y fondo</span></header><div class="chart xtall"><canvas id="chWeight"></canvas></div></div>
+  </section>
+
+  <section class="view" id="v-patrimonio" hidden>
+    <div class="grid2">
+      <div class="panel"><header><h3>Distribución del patrimonio</h3><select id="patPeriod" aria-label="Mes de la distribución" style="width:auto"></select></header>
+        <div class="patri" id="patTotal" style="margin:0"></div>
+        <div class="chart"><canvas id="chPatPie"></canvas></div></div>
+      <div class="panel"><header><h3>Evolución del patrimonio</h3><span class="muted" style="font-size:12px">saldos registrados · €</span></header><div class="chart" style="height:330px"><canvas id="chPatEvo"></canvas></div></div>
+    </div>
+    <p class="muted" style="margin:0;max-width:80ch">Escribe el saldo de cada mes en las tablas; se guarda al salir de la casilla o al pulsar Intro. Deja una casilla vacía para borrarla. La fila «Último saldo» es el último dato de cada año.</p>
+    <div class="patgrid" id="patTables"></div>
   </section>
 
   <section class="view" id="v-posiciones" hidden>
@@ -74,8 +91,9 @@
       <div class="muted" id="pHint" style="font-size:12px"></div>
     </div>
     <div class="filters" style="justify-content:flex-end"><button type="button" class="btn exp" data-export="positions" hidden>Exportar a Excel</button><button type="button" class="btn ghost" id="gOpen">Desplegar todo</button><button type="button" class="btn ghost" id="gClose">Plegar todo</button></div>
-    <div class="tbl"><table id="tPos"></table></div>
-    <div class="panel"><header><h3>Posiciones cerradas</h3></header><div class="tbl" style="border:0"><table id="tClosed"></table></div></div>
+    <div class="tbl stick"><table id="tPos"></table></div>
+    <div class="totgrid" id="posTotals"></div>
+    <div class="panel"><header><h3><button type="button" class="gtoggle" id="closedToggle" aria-expanded="true" aria-controls="closedBody"><span class="chev" aria-hidden="true">▸</span>Posiciones cerradas <span class="muted" id="closedCount" style="font-family:var(--f-body);font-weight:500"></span></button></h3></header><div class="tbl stick" style="border:0" id="closedBody"><table id="tClosed"></table></div></div>
   </section>
 
   <section class="view" id="v-movimientos" hidden>
@@ -88,7 +106,7 @@
         <label id="lName" hidden>Nombre del activo<input id="oName" placeholder="Nombre"></label>
         <label id="lKind" hidden>Tipo de activo<select id="oKind"><option>Acción</option><option>ETF</option><option>Fondo</option></select></label>
         <label id="lIsin" hidden>ISIN<input id="oIsin" placeholder="opcional"></label>
-        <label id="lBroker" hidden>Bróker<input id="oBroker" placeholder="Nombre del bróker"></label>
+        <label id="lBroker">Bróker<select id="oBroker"><option value="">—</option><option>Degiro</option><option>Ocean</option><option>Cxbank</option><option>Santander</option><option>BBVA</option></select></label>
         <label>Acciones<input id="oQty" type="number" min="0" step="any" required></label>
         <label>Precio (€)<input id="oPrice" type="number" min="0" step="any" required></label>
         <label>Comisión (€)<input id="oFee" type="number" min="0" step="any" value="0"></label>
@@ -97,8 +115,9 @@
       </form>
       <div class="muted" id="oHint" style="font-size:12px"></div>
     </div>
-    <div class="filters" style="align-items:center"><select id="fYear"></select><select id="fTk"></select><button type="button" class="btn exp" data-export="orders" hidden title="Exporta las órdenes que muestra la tabla con el filtro actual">Exportar a Excel</button></div>
-    <div class="tbl scrollv"><table id="tOrders"></table></div>
+    <div class="filters" style="align-items:center"><select id="fYear"></select><select id="fTk"></select><select id="fBrk" aria-label="Filtrar por bróker"></select><button type="button" class="btn ghost" id="yOpen">Desplegar años</button><button type="button" class="btn ghost" id="yClose">Plegar años</button><button type="button" class="btn exp" data-export="orders" hidden title="Exporta las órdenes que muestra la tabla con el filtro actual">Exportar a Excel</button></div>
+    <div class="panel" id="brkPanel"></div>
+    <div class="tbl scrollv stick"><table id="tOrders"></table></div>
   </section>
 
   <section class="view" id="v-dividendos" hidden>
@@ -113,7 +132,7 @@
     </div>
     <div class="filters" style="align-items:center"><select id="dYear"></select><button type="button" class="btn exp" data-export="dividends" hidden title="Exporta todos los años, con el mismo formato que la hoja Dividendo">Exportar a Excel</button><span class="muted" style="font-size:12px">Haz clic en una celda para corregir el importe o escribir uno nuevo; déjala vacía para borrarlo. Las cifras con un número pequeño juntan varios cobros: se corrigen en la lista de abajo.</span></div>
     <div class="tbl scrolly"><table id="tDivMatrix"></table></div>
-    <div class="panel"><header><h3>Cobros registrados</h3><span class="muted" style="font-size:12px">corrige fecha, ticker o importe directamente; los importados del Excel llevan día 15</span></header><div class="tbl" style="border:0;max-height:420px"><table id="tDivs"></table></div></div>
+    <div class="panel"><header><h3>Cobros registrados</h3><span class="muted" style="font-size:12px">corrige fecha, ticker o importe directamente; los importados del Excel llevan día 15</span></header><div class="tbl stick" style="border:0;max-height:420px"><table id="tDivs"></table></div></div>
   </section>
 
   <section class="view" id="v-analisis" hidden>
