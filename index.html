@@ -103,7 +103,7 @@
         <label>Fecha<input id="oDate" type="date" required></label>
         <label>Tipo<select id="oType"><option value="buy">Compra</option><option value="sell">Venta</option><option value="fee">Gasto / custodia</option></select></label>
         <label>Ticker<input id="oTicker" list="tickers" placeholder="p. ej. VWCE" required></label>
-        <label id="lName" hidden>Nombre del activo<input id="oName" placeholder="Nombre"></label>
+        <label id="lName">Nombre del activo<input id="oName" list="tknames" placeholder="o escribe el nombre"></label>
         <label id="lKind" hidden>Tipo de activo<select id="oKind"><option>Acción</option><option>ETF</option><option>Fondo</option></select></label>
         <label id="lIsin" hidden>ISIN<input id="oIsin" placeholder="opcional"></label>
         <label id="lBroker">Bróker<select id="oBroker"><option value="">—</option><option>Degiro</option><option>Ocean</option><option>Cxbank</option><option>Santander</option><option>BBVA</option></select></label>
@@ -167,7 +167,7 @@
     </div>
   </section>
 </div>
-<datalist id="tickers"></datalist>
+<datalist id="tickers"></datalist><datalist id="tknames"></datalist>
 <div class="toast" id="toast" hidden></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>

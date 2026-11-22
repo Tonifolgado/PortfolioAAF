@@ -328,14 +328,17 @@ function renderSim(){
 }
 
 /* ---------- render all ---------- */
+// Cada sección se dibuja por separado: si una falla, las demás se siguen actualizando.
+function safe(name,f){try{f()}catch(e){console.error('Error al dibujar '+name,e)}}
 function renderAll(){
-  renderKpis();
+  safe('KPIs',renderKpis);
   const dl=$('#tickers');dl.innerHTML=Object.entries(meta().catalog||{}).map(([t,c])=>`<option value="${esc(t)}">${esc(c.name)}</option>`).join('');
-  renderPos();renderPlanForm();renderOrders();renderDivs();renderHealth();
-  renderAnalysis();renderSince();renderBackupInfo();
-  renderPatrimonio();
-  if(S.view==='resumen')renderResumen();
-  if(S.view==='simulador')renderSim();
+  $('#tknames').innerHTML=Object.entries(meta().catalog||{}).filter(([t,c])=>c.name).sort((a,b)=>a[1].name.localeCompare(b[1].name,'es')).map(([t,c])=>`<option value="${esc(c.name)}">${esc(t)}</option>`).join('');
+  safe('posiciones',renderPos);safe('planes',renderPlanForm);safe('órdenes',renderOrders);safe('dividendos',renderDivs);safe('análisis',renderHealth);
+  safe('análisis escrito',renderAnalysis);safe('fecha',renderSince);safe('copias',renderBackupInfo);
+  safe('patrimonio',renderPatrimonio);
+  if(S.view==='resumen')safe('resumen',renderResumen);
+  if(S.view==='simulador')safe('simulador',renderSim);
 }
 /* ---------- patrimonio: saldos por mes de cuentas, planes, fondos e inversiones ---------- */
 const PAT_MONTHS=[['01','Enero'],['03','Marzo'],['05','Mayo'],['07','Julio'],['10','Octubre'],['12','Diciembre']];
@@ -408,7 +411,7 @@ const uid=()=>'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function syncOrderForm(){
   const type=$('#oType').value, t=$('#oTicker').value.trim().toUpperCase(), known=!!meta().catalog?.[t];
   const isFee=type==='fee';
-  ['#lName','#lKind','#lIsin'].forEach(s=>$(s).hidden=isFee||known||!t);
+  $('#lName').hidden=isFee;['#lKind','#lIsin'].forEach(s=>$(s).hidden=isFee||known||!t);
   // Bróker por defecto: el de la posición, solo al cambiar de ticker (no pisa una elección manual).
   const key=isFee?'#fee':t;if(key!==S.oTk){S.oTk=key;$('#oBroker').value=known?(info(t).broker||''):isFee?'':$('#oBroker').value}
   $('#lNote').hidden=!isFee;
@@ -416,11 +419,27 @@ function syncOrderForm(){
   $('#oQty').closest('label').hidden=isFee;$('#oPrice').closest('label').hidden=isFee;$('#oTicker').closest('label').hidden=isFee;
   const p=positions().find(p=>p.ticker===t);
   const sel=$('#oBroker').value, pb=known?info(t).broker:'';
-  $('#oHint').textContent=isFee?'Los gastos cuentan en «Comisiones y custodia». Elige el bróker que los cobra.':t&&known?`${info(t).name}: tienes ${num(p?.qty||0,0)} acciones a ${num(p&&p.qty?p.cost/p.qty:0)} € de coste medio${pb?` en ${pb}`:''}.${sel&&pb&&sel!==pb?` Esta orden quedará registrada en ${sel}.`:''}`:t?'Ticker nuevo: indica su nombre para darlo de alta.':'';
+  $('#oHint').textContent=isFee?'Los gastos cuentan en «Comisiones y custodia». Elige el bróker que los cobra.':t&&known?`${info(t).name}: tienes ${num(p?.qty||0,0)} acciones a ${num(p&&p.qty?p.cost/p.qty:0)} € de coste medio${pb?` en ${pb}`:''}.${sel&&pb&&sel!==pb?` Esta orden quedará registrada en ${sel}.`:''}`:t?($('#oName').value.trim()?`Activo nuevo: se dará de alta como «${$('#oName').value.trim()}» (${t}).`:'Ticker nuevo: indica su nombre para darlo de alta.'):$('#oName').value.trim()?'No hay ningún activo con ese nombre: escribe también su ticker para darlo de alta.':'';
 }
-['#oType','#oTicker','#oBroker'].forEach(s=>$(s).addEventListener('input',syncOrderForm));
+// Ticker ⇄ nombre: al escribir uno se rellena el otro si el activo ya está en la cartera.
+const normName=x=>String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+function tickerByName(n){const k=normName(n);if(!k)return '';const hits=Object.entries(meta().catalog||{}).filter(([t,c])=>normName(c.name)===k);return hits.length===1?hits[0][0]:''}
+S.oAuto=null; // qué campo se rellenó solo: 'name' o 'ticker'
+$('#oTicker').addEventListener('input',()=>{const t=$('#oTicker').value.trim().toUpperCase(),c=meta().catalog?.[t];
+  if(c&&c.name){$('#oName').value=c.name;S.oAuto='name'}
+  else if(S.oAuto==='name'){$('#oName').value='';S.oAuto=null}
+  else if(S.oAuto==='ticker')S.oAuto=null;
+  syncOrderForm()});
+$('#oName').addEventListener('input',()=>{const t=tickerByName($('#oName').value);
+  if(t){$('#oTicker').value=t;S.oAuto='ticker'}
+  else if(S.oAuto==='ticker'){$('#oTicker').value='';S.oAuto=null}
+  else if(S.oAuto==='name')S.oAuto=null;
+  syncOrderForm()});
+['#oType','#oBroker'].forEach(s=>$(s).addEventListener('input',syncOrderForm));
 $('#oDate').value=today;$('#dDate').value=today;
 
+// Deja el formulario en blanco tras guardar (se conservan la fecha y el tipo de orden).
+function resetOrderForm(){safe('órdenes',renderOrders);['#oTicker','#oName','#oQty','#oPrice','#oNote','#oIsin'].forEach(q=>$(q).value='');$('#oFee').value='0';$('#oBroker').value='';$('#oKind').selectedIndex=0;S.oAuto=null;S.oTk=null;syncOrderForm()}
 $('#fOrder').addEventListener('submit',e=>{e.preventDefault();
   const type=$('#oType').value, date=$('#oDate').value, fee=+$('#oFee').value||0;
   let row;
@@ -432,10 +451,10 @@ $('#fOrder').addEventListener('submit',e=>{e.preventDefault();
     const isNew=!meta().catalog?.[t];
     if(isNew&&!$('#oName').value.trim())return toast('Escribe el nombre del activo nuevo.');
     row={id:uid(),date,type,ticker:t,qty,price,fee,...($('#oBroker').value?{broker:$('#oBroker').value}:{})};
-    if(isNew)enqueue(()=>S.db.doc('ledger/meta').update({catalog:{[t]:{name:$('#oName').value.trim(),kind:$('#oKind').value,broker:$('#oBroker').value,isin:$('#oIsin').value.trim().toUpperCase(),sector:'',region:''}}}));
+    if(isNew){const entry={name:$('#oName').value.trim(),kind:$('#oKind').value,broker:$('#oBroker').value,isin:$('#oIsin').value.trim().toUpperCase(),sector:'',region:''};enqueue(()=>S.db.doc('ledger/meta').update({catalog:{[t]:entry}}))}
   }
   enqueue(async()=>{await writeRows('orders-'+date.slice(0,4),rows=>[...rows,row]);toast(type==='buy'?'Compra guardada':type==='sell'?'Venta guardada':'Gasto guardado');
-    ['#oQty','#oPrice','#oName','#oNote','#oIsin'].forEach(s=>$(s).value='');syncOrderForm()});
+    resetOrderForm()});
 });
 $('#fDiv').addEventListener('submit',e=>{e.preventDefault();
   const date=$('#dDate').value, t=$('#dTicker').value.trim().toUpperCase(), amount=+$('#dAmt').value;

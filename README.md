@@ -12,7 +12,7 @@ Los datos se guardan en el archivo **`data/portfolio.json`** de este repositorio
 - **Resumen**: plusvalía, dividendos y comisiones; gráficos de importe y distribución por tipo de activo, aportación anual, dividendos acumulados, evolución de bolsa frente a planes y peso de cada posición.
 - **Patrimonio**: saldos por mes y año de cuentas corrientes, planes de pensiones e inversiones (tablas editables y plegables), tabla de total, distribución del mes elegido y evolución.
 - **Posiciones**: agrupadas en ETF, acciones y planes/fondos (plegables), con bróker editable, coste medio, precio de referencia, plusvalía, dividendos y peso; paneles de importe y número de acciones por tipo y por bróker; posiciones cerradas.
-- **Compras y ventas**: alta de compras, ventas y gastos con bróker; tabla agrupada por años plegables, con filtros por año, activo y bróker, y totales por bróker.
+- **Compras y ventas**: alta de compras, ventas y gastos con bróker (escribe el ticker o el nombre del activo y el otro se rellena solo; el formulario se vacía al guardar); tabla agrupada por años plegables, con filtros por año, activo y bróker, y totales por bróker que se actualizan con cada orden.
 - **Dividendos**: tabla por meses editable y lista de cobros enlazadas (lo que se añade en una aparece en la otra).
 - **Análisis**: indicadores calculados con tus datos (fricción por comisiones, coste por bróker) y el análisis escrito guardado en los datos.
 - **Simulador de aportación**: frecuencia óptima de compra según la aportación mensual y la comisión por orden.
