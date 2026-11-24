@@ -1430,12 +1430,6 @@
      "ticker": "HDLV"
     },
     {
-     "amount": 23.81,
-     "date": "2026-09-15",
-     "id": "d235",
-     "ticker": "EXSA"
-    },
-    {
      "amount": 4.03,
      "date": "2026-09-15",
      "id": "d236",
@@ -3727,8 +3721,8 @@
      "kind": "Plan de pensiones",
      "manager": "CaixaBank",
      "name": "CaixaBank Tendencias RV",
-     "nav": 38,
-     "navDate": "2026-11-12",
+     "nav": 37,
+     "navDate": "2026-11-22",
      "navSrc": "manual",
      "order": 1,
      "units": 607.4
@@ -3820,7 +3814,7 @@
     },
     {
      "BBVAFS": 7790,
-     "CABKPP": 23081,
+     "CABKPP": 22474,
      "SANPPE": 9240,
      "bolsa": 24919,
      "date": "2026-11",
@@ -3830,6 +3824,6 @@
   }
  },
  "format": "PortfolioAAF",
- "savedAt": "2026-11-22T19:07:02.620140+00:00",
+ "savedAt": "2026-11-24T19:02:08.769924+00:00",
  "version": 1
 }
